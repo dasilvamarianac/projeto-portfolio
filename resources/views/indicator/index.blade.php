@@ -4,7 +4,7 @@
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Usuários</h4>
+            <h4 class="page-title">Indicadores</h4>
 	    </div>
 	    @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -13,7 +13,7 @@
     	@endif
         <div class="row ">
             <div class="col-lg-12">
-            	<button class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  onclick="window.location='{{ route('register') }}'">
+            	<button class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  onclick="window.location='{{ route('indicator.create') }}'">
             		<i class="fas fa-plus"></i> Novo</button>
             </div>
         </div>
@@ -25,27 +25,23 @@
 							<thead>
 								<tr>
 				                    <th>Nome</th>
-				                    <th>Email</th>
-				                    <th>Perfil</th>
-				                    <th>Ações</th>
+				                    <th>Descrição</th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
 				                    <th>Nome</th>
-				                    <th>Email</th>
-				                    <th>Perfil</th>
+				                    <th>Descrição</th>
 								</tr>
 							</tfoot>
 							<tbody>
 								@foreach($data as $row)
 								<tr>
 									<td>{{ $row->name}}</td>
-									<td>{{ $row->email}}</td>
-									<td>{{ $row->profiledesc}}</td>
+									<td>{{ $row->desc}}</td>
 									<td>
 										<button type="button" class="btn btn-icon btn-round btn-info" 
-										onclick="window.location='{{ url("user/$row->id") }}'"
+										onclick="window.location='{{ url("indicator/$row->id") }}'"
 										>
 											<i class="fas fa-pencil-alt"></i>
 										</button>
@@ -63,7 +59,7 @@
         </div>
     </div>
 </div>
-@include('user/delete')
+@include('indicator/delete')
 
 @endsection
 

@@ -90,7 +90,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="widgets.html">
+                            <a href="/indicator">
                                 <i class="fas fas fa-thermometer-half"></i>
                                 <p>Indicadores</p>
                             </a>
@@ -235,6 +235,12 @@
 
             });
         });
+        $('#deletemodal').on('show.bs.modal', function (event) {
+            var origem = $(event.relatedTarget)
+            var del = origem.data('delid')
+            var modal = $(this)
+            modal.find('#delid').val(del);
+        })
     </script>
 </body>
 </html>

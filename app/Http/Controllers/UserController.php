@@ -40,7 +40,7 @@ class UserController extends Controller
            $validatedData = $request->validate([
                 'status' => 'required|integer',
             ]);
-            User::whereId($id)->update($validatedData);
+            User::whereId($request->id)->update($validatedData);
             return redirect('/user')->with('success', 'Usuário excluído com sucesso!');   
         }else{
             $validatedData = $request->validate([
