@@ -45,7 +45,6 @@
 									<td>{{ $row->profiledesc}}</td>
 									<td>
 										<button type="button" class="btn btn-icon btn-round btn-info" 
-
 										onclick="window.location='{{ url("user/$row->id") }}'"
 										>
 											<i class="fas fa-pencil-alt"></i>
@@ -67,3 +66,4 @@
 @include('user/delete')
 
 @endsection
+

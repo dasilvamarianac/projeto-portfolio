@@ -8,15 +8,23 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Deseja realmente excluir este usuário? {{$row->name}} </p>
+        <p>Deseja realmente excluir este usuário? {{$row->id}} - {{$row->status}} </p>
       </div>
       <div class="modal-footer">  
-        <form method="post" action="{{ route('user.destroy', $row->id) }}" enctype="multipart/form-data" id="form_del">   
+        <form method="post" action="{{ route('user.destroy', $row->id) }}" enctype="multipart/form-data" id="form_del">  
           @csrf 
-          {{method_field('patch')}} 
-          <input type="submit" name="destroy" class="btn btn-primary input-lg" value="Deletar" />
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          @method('PATCH')
+          <div class="col-md-6">
+              <input id="status" type="hidden" class="form-control @error('status') is-invalid @enderror" name="status"required autocomplete="status" autofocus value="0">
+              @error('status')
+                <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+          </div>
+          <input type="submit" name="destroy" class="btn btn-primary input-lg" value="Excluir" />
         </form>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>

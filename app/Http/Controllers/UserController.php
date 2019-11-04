@@ -11,25 +11,16 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public function __construct()
     {
         $this->middleware('auth');
     }
-
-    protected $redirectTo = '/user';
 
     public function index()
     {
         $data = DB::table('usersprof')->where('status', 1)->get();
         return view('user.index', compact('data'));
     }
-
 
     public function show($id)
     {
@@ -43,30 +34,22 @@ class UserController extends Controller
         return view('user.edit', compact('data'));
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function update(Request $request, $id)
+    protected function update(Request $request,  $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'profile' => 'required|integer',
-            //'password' => 'required|string|min:8|confirmed',
-        ]);
-        User::whereId($id)->update($validatedData);
-
-        return redirect('/user');//->with('success', 'Sucesso na alteração!');
-
+        if ($request->status == 0){
+           $validatedData = $request->validate([
+                'status' => 'required|integer',
+            ]);
+            User::whereId($id)->update($validatedData);
+            return redirect('/user')->with('success', 'Usuário excluído com sucesso!');   
+        }else{
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'profile' => 'required|integer',
+                //'password' => 'required|string|min:8|confirmed',
+            ]);
+            User::whereId($id)->update($validatedData);
+            return redirect('/user')->with('success', 'Usuário alterado com sucesso!'); 
+        }
     }
-    public function destroy($id)
-    {
-        $status = 0;
-        User::whereId($id)->update($status);
-
-        return redirect('/user');//->with('success', 'Sucesso na alteração!');
-    }
-    
 }
