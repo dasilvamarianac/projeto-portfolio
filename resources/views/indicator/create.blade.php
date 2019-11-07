@@ -26,7 +26,7 @@
                             <label for="desc" class="col-md-4 col-form-label text-md-right">Descrição</label>
 
                             <div class="col-md-6">
-                                <input id="desc" type="text" class="form-control" name="desc" required autocomplete="desc" >
+                                <textarea name="desc" cols="40" rows="5" class="form-control input-lg"  maxlength="500" required></textarea>
                             </div>
                         </div>
 
