@@ -2,16 +2,16 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Exclusão de usuário</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Exclusão de Projeto</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Deseja realmente excluir este usuário? </p>
+        <p>Deseja realmente excluir este projeto? </p>
       </div>
       <div class="modal-footer">  
-        <form method="post" action="{{ route('user.destroy', 1) }}" enctype="multipart/form-data" id="form_del">  
+        <form method="post" action="{{ route('project.destroy', 1) }}" enctype="multipart/form-data" id="form_del">  
           @csrf 
           @method('PATCH')
           <div class="col-md-6">

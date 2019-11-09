@@ -84,7 +84,7 @@
                 <div class="sidebar-content">
                     <ul class="nav nav-primary">
                         <li class="nav-item">
-                            <a href="{{ route('register') }}">
+                            <a href="/project">
                                 <i class="fas far fa-lightbulb"></i>
                                 <p>Projetos</p>
                             </a>

@@ -4,91 +4,98 @@
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Editar usuário</h4>
+            <h4 class="page-title">Editar Projeto</h4>
         </div>
 
         <div class="row justify-content-center">
             <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Editar usuário') }}</div>
-
+                <div class="card-header">Editar Projeto</div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('user.update', $data->id) }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('project.update', $data->id) }}" enctype="multipart/form-data">
                         @csrf
-                         @method('PATCH')
+                        @method('PATCH')
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Nome</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"required autocomplete="name" autofocus value="{{$data->name}}" readonly >
+                                <input id="status" type="hidden" name="status" value="{{$data->status}}">
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input id="name" type="text" class="form-control" name="name" required autocomplete="name" value="{{$data->name}}" maxlength="255" autofocus >
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-mail') }}</label>
+                            <label for="desc" class="col-md-4 col-form-label text-md-right">Descrição</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$data->email}}" required autocomplete="email" readonly>
-                                <input type="hidden" class="form-control" name="status" value="{{$data->status}}">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <textarea name="desc" cols="40" rows="5" class="form-control input-lg"  maxlength="500" required>{{$data->desc}}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Senha') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Data de início</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" value="{{$data->password}}">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Senha') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" value="{{$data->password}}">
+                                <input id="start_date" type="date" class="form-control" name="start_date" required value="{{$data->start_date}}" autocomplete="name" autofocus >
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="profile" class="col-md-4 col-form-label text-md-right">{{ __('Perfil') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Data de previsão</label>
 
                             <div class="col-md-6">
-                                <select id="profile" type="password" class="form-control" name="profile" required>
-                                    <option value="0" 
-                                    {{ $data->profile == 0 ? 'selected':''}}> {{ __('Administrador') }}</option>
-                                    <option value="1" 
-                                    {{$data->profile == 1 ? 'selected':''}}>{{ __('Gerente') }}</option>
-                                   <option value="2" 
-                                    {{$data->profile == 2 ? 'selected':''}}>{{ __('Líder de Projeto') }}</option>
-                                    <option value="3" 
-                                    {{$data->profile == 3 ? 'selected':''}}>{{ __('Líder de Escritório') }}</option>
-                                    <option value="4" 
-                                    {{$data->profile == 4 ? 'selected':''}}>{{ __('Alta Diretoria') }}</option>
+                                <input id="expected_date" type="date" class="form-control" name="expected_date" value="{{$data->expected_date}}" required autocomplete="name" autofocus >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Orçamento</label>
+
+                            <div class="col-md-6">
+                                <input id="budget" type="text" class="form-control" name="budget" required autocomplete="name" value="{{$data->budget}}" autofocus >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Risco</label>
+
+                            <div class="col-md-6">
+                                <select id="risk" class="form-control" name="risk" required>
+                                    <option value="0" {{ $data->risk == 0 ? 'selected':''}}>Baixo</option>
+                                    <option value="1" {{ $data->risk == 1 ? 'selected':''}}>Médio</option>
+                                    <option value="2"
+                                    {{ $data->risk == 2 ? 'selected':''}}>Alto</option>
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Gerente</label>
 
+                            <div class="col-md-6">
+                                <select id="manager"  class="form-control" name="manager" required>
+                                    @foreach($ger as $row)
+                                        <option value="{{$row->id}}" {{$data->manager == $row->id ? 'selected':''}} >
+                                            {{$row->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Líder</label>
+
+                            <div class="col-md-6">
+                                <select id="leader" class="form-control" name="leader" required>
+                                    @foreach($lid as $row)
+                                        <option value="{{$row->id}}" {{$data->leader == $row->id ? 'selected':''}}>
+                                            {{$row->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <input type="submit" name="update" class="btn btn-primary input-lg" value="Salvar" />
-                                <button class="btn btn-secondary" type="button" onclick="window.location='{{ route('user.index') }}'">Cancelar</button>
+                                <input type="submit" name="create" class="btn btn-primary input-lg" value="Salvar" />
+                                <button class="btn btn-secondary" type="button" onclick="window.location='{{ route('project.index') }}'">Cancelar</button>
                             </div>
                         </div>
                     </form>

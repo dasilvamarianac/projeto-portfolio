@@ -28,7 +28,6 @@
 				                    <th>Gerente</th>
 				                    <th>Status</th>
 				                    <th>Previsão</th>
-				                    <th>Conclusão</th>
 				                    <th>Ações</th>
 								</tr>
 							</thead>
@@ -38,7 +37,6 @@
 				                    <th>Gerente</th>
 				                    <th>Status</th>
 				                    <th>Previsão</th>
-				                    <th>Conclusão</th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -46,12 +44,16 @@
 								<tr>
 									<td>{{$row->name}}</td>
 									<td>{{$row->manager}}</td>
-									<td><button class="btn btn-primary btn-round btn-xs">{{$row->status}}</button></td>
+									<td><button class='btn btn-primary btn-round btn-xs'>{{$row->status}}</button></td>
 									<td>{{$row->expected_date}}</td>
-									<td>{{$row->end_date}}</td>
 									<td>
+										<button type="button" class="btn btn-icon btn-round btn-secondary" 
+										onclick="window.location='{{ url("project/$row->id") }}'"
+										>
+											<i class="fas fa-info"></i>
+										</button>
 										<button type="button" class="btn btn-icon btn-round btn-info" 
-										onclick="window.location='{{ url("user/$row->id") }}'"
+										onclick="window.location='{{ url("project/$row->id") }}'"
 										>
 											<i class="fas fa-pencil-alt"></i>
 										</button>
@@ -69,7 +71,7 @@
         </div>
     </div>
 </div>
-@include('user/delete')
+@include('project/delete')
 
 @endsection
 
