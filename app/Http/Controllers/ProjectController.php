@@ -24,9 +24,8 @@ class ProjectController extends Controller
 
     public function create()
     {
-        $ger = DB::select("select id, name from users where status = 1 and profile = 1 order by name");
-        $lid = DB::select("select id, name from users where status = 1 and profile = 2 order by name");
-        return view('project.create', compact('ger'), compact('lid'));
+        $users = DB::select("select * from users where status = 1 order by name");
+        return view('project.create', compact('users'));
     }
 
     public function store(Request $request)
@@ -54,18 +53,18 @@ class ProjectController extends Controller
     public function show($id)
     {
         $data = Project::findOrFail($id);
-        $ger = DB::select("select id, name from users where status = 1 and profile = 1 order by name");
-        $lid = DB::select("select id, name from users where status = 1 and profile = 2 order by name");
-        return view('project.edit', compact('data', 'ger', 'lid'));
+        $teste = DB::table('v_project')->where('id', $id)->get();
+        
+        $users = DB::select("select * from users where status = 1 order by name");
+        return view('project.detail', compact('data', 'users', 'teste'));
     }
 
     public function edit($id)
     {
 
         $data = Project::findOrFail($id);
-        $ger = DB::select("select id, name from users where status = 1 and profile = 1 order by name");
-        $lid = DB::select("select id, name from users where status = 1 and profile = 2 order by name");
-        return view('project.edit', compact('data', 'ger', 'lid'));
+        $users = DB::select("select * from users where status = 1 order by name");
+        return view('project.edit', compact('data', 'users'));
     }
 
     protected function update(Request $request, $id)

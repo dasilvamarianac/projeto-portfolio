@@ -18,4 +18,4 @@ Route::get('/', 'HomeController@index')->name('welcome');
 Route::resource('user','UserController');
 Route::resource('indicator','IndicatorController');
 Route::resource('project','ProjectController');
-
+Route::resource('member','MemberController');

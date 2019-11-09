@@ -16,6 +16,8 @@
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('css/demo.css') }}">
+
+
 </head>
 <body>
     <div class="wrapper">
@@ -84,16 +86,33 @@
                 <div class="sidebar-content">
                     <ul class="nav nav-primary">
                         <li class="nav-item">
-                            <a href="/project">
+                            <a data-toggle="collapse" href="#port">
                                 <i class="fas far fa-lightbulb"></i>
-                                <p>Projetos</p>
+                                <p>Portfólio</p>
+                                <span class="caret">
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/indicator">
-                                <i class="fas fas fa-thermometer-half"></i>
-                                <p>Indicadores</p>
-                            </a>
+                            <div class="collapse" id="port">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="/project">
+                                            <i class="fas fa-layer-group"></i>
+                                            <p>Projetos</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/indicator">
+                                            <i class="fas fas fa-thermometer-half"></i>
+                                            <p>Indicadores</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="components/avatars.html">
+                                           <i class="fas fa-user-friends"></i>
+                                            <p>Membros</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a data-toggle="collapse" href="#rels">

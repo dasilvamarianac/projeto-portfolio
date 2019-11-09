@@ -71,10 +71,12 @@
 
                             <div class="col-md-6">
                                 <select id="manager"  class="form-control" name="manager" required>
-                                    @foreach($ger as $row)
-                                        <option value="{{$row->id}}" {{$data->manager == $row->id ? 'selected':''}} >
+                                    @foreach($users as $row)
+                                        @if ($row->profile == 1)
+                                            <option value="{{$row->id}}" {{$data->manager == $row->id ? 'selected':''}} >
                                             {{$row->name}}
-                                        </option>
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -84,10 +86,12 @@
 
                             <div class="col-md-6">
                                 <select id="leader" class="form-control" name="leader" required>
-                                    @foreach($lid as $row)
-                                        <option value="{{$row->id}}" {{$data->leader == $row->id ? 'selected':''}}>
+                                    @foreach($users as $row)
+                                        @if ($row->profile == 2)
+                                            <option value="{{$row->id}}" {{$data->leader == $row->id ? 'selected':''}}>
                                             {{$row->name}}
-                                        </option>
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

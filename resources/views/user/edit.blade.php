@@ -81,6 +81,8 @@
                                     {{$data->profile == 3 ? 'selected':''}}>{{ __('Líder de Escritório') }}</option>
                                     <option value="4" 
                                     {{$data->profile == 4 ? 'selected':''}}>{{ __('Alta Diretoria') }}</option>
+                                    <option value="5" 
+                                    {{$data->profile == 5 ? 'selected':''}}>{{ __('Membro Comum') }}</option>
                                 </select>
                             </div>
                         </div>
