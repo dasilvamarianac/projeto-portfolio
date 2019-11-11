@@ -4,32 +4,65 @@
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Novo indicador</h4>
+            <h4 class="page-title">Associar indicador</h4>
         </div>
 
         <div class="row justify-content-center">
             <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Novo indicador</div>
+                <div class="card-header">Associar indicador</div>
                 <div class="card-body">
                     <form method="post" action="{{ route('indicator.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Nome</label>
+                            <label for="indicator" class="col-md-4 col-form-label text-md-right">Indicador</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus >
+                                <select id="indicator"  class="form-control" name="indicator" required>
+                                    @foreach($data as $row)
+                                            <option value="{{$row->id}}">
+                                                {{$row->name}}
+                                            </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-
                         <div class="form-group row">
-                            <label for="desc" class="col-md-4 col-form-label text-md-right">Descrição</label>
+                            <label for="status" class="col-md-4 col-form-label text-md-right">Risco</label>
 
                             <div class="col-md-6">
-                                <textarea name="desc" cols="40" rows="5" class="form-control input-lg"  maxlength="500" required></textarea>
+                                <select id="status" class="form-control" name="status" required>
+                                    <option value="2">Em Análise</option>
+                                    <option value="3">Análise Realizada</option>
+                                    <option value="4">Análise Aprovada</option>
+                                    <option value="5">Iniciado</option>
+                                    <option value="6">Planejado</option>
+                                    <option value="7">Em Andamento</option>
+                                    <option value="8">Encerrado</option>
+                                    <option value="9">Cancelado</option>
+
+                                </select>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="max" class="col-md-4 col-form-label text-md-right">Máximo</label>
 
+                            <div class="col-md-6">
+                                <input id="max" type="text" class="form-control" name="max" required autocomplete="max" autofocus >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="min" class="col-md-4 col-form-label text-md-right">Mínimo</label>
+
+                            <div class="col-md-6">
+                                <input id="min" type="text" class="form-control" name="min" required autocomplete="min" autofocus >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input id="project" type="hidden" class="form-control" name="project">
+                            </div>
+                        </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <input type="submit" name="create" class="btn btn-primary input-lg" value="Salvar" />

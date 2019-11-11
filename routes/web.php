@@ -19,3 +19,4 @@ Route::resource('user','UserController');
 Route::resource('indicator','IndicatorController');
 Route::resource('project','ProjectController');
 Route::resource('member','MemberController');
+Route::resource('projectindicator','ProjectIndicatorController');

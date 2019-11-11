@@ -50,7 +50,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">Orçamento</label>
 
                             <div class="col-md-6">
-                                <input id="budget" type="text" class="form-control" name="budget" required autocomplete="name" autofocus >
+                                <input id="budget" type="number" class="form-control" name="budget" required autocomplete="name" autofocus>
                             </div>
                         </div>
                         <div class="form-group row">

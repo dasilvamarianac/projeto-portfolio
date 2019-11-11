@@ -9,9 +9,22 @@
                                 <h5 class="text-white op-7 mb-2">{{$data->desc}}</h5>
                             </div>
                             <div class="ml-md-auto py-2 py-md-0">
-                                <a href="/members/{{$data->id}}" class="btn btn-white btn-border btn-round mr-2">Status</a>
-                                <a href="/members/{{$data->id}}" class="btn btn-secondary btn-round mr-2">Membros</a>
-                                <a href="/projeindicators/{{$data->id}}" class="btn btn-secondary btn-round">Indicadores</a>
+                                @if($data->status == "Em Cadastro")
+                                    <a class="btn btn-white btn-border btn-round mr-2">
+                                        {{$data->status}}
+                                    </a>
+                                @else
+                                    <a href="/members/{{$data->id}}" class="btn btn-default btn-round mr-2">
+                                        {{$data->status}}
+                                    </a>
+                                @endif
+                                @if($data->risk == "Alto")
+                                    <a class="btn btn-white btn-border btn-round mr-2">
+                                        Acompanhamento
+                                    </a>
+                                @endif
+                                <a href="/members/{{$data->id}}" class="btn btn-default btn-round mr-2">Membros</a>
+                                <a href="/projeindicators/{{$data->id}}" class="btn btn-default btn-round">Indicadores</a>
                             </div>
                         </div>
                     </div>
@@ -19,11 +32,11 @@
                 <div class="page-inner mt--5">
                     <div class="row mt--2">
                         <div class="col-md-4">
-                            <div class="card card-primary bg-primary-gradient">
+                            <div class="card card-primary ">
                                 <div class="card-body">
                                     <h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Membros do projeto</h4>
                                     <h3 class="mb-4 fw-bold">17</h1>
-                                    <h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Informações gerais</h4>
+                                    <h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Informações gerais</h4>
                                     <div id="activeUsersChart"></div>
                                     <h4 class="mt-2 mb-0 fw-bold">Data de início</h4>
                                     <ul class="list-unstyled">
@@ -39,7 +52,7 @@
                                     </ul>
                                     <h4 class="mb-0 fw-bold">Orçamento</h4>
                                     <ul class="list-unstyled">
-                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->budget}}</small></li>
+                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>R$ {{$data->budget}}</small></li>
                                     </ul>
                                     <h4 class="mb-0 fw-bold">Gerente</h4>
                                     <ul class="list-unstyled">

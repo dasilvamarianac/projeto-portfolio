@@ -50,14 +50,6 @@ class ProjectController extends Controller
          return redirect('/project')->with('success', 'Indicador criado com sucesso!'); 
     }
 
-    public function show($id)
-    {
-        $data = Project::findOrFail($id);
-        $teste = DB::table('v_project')->where('id', $id)->get();
-        
-        $users = DB::select("select * from users where status = 1 order by name");
-        return view('project.detail', compact('data', 'users', 'teste'));
-    }
 
     public function edit($id)
     {
@@ -65,6 +57,14 @@ class ProjectController extends Controller
         $data = Project::findOrFail($id);
         $users = DB::select("select * from users where status = 1 order by name");
         return view('project.edit', compact('data', 'users'));
+    }
+
+    public function show($id)
+    {
+        $data = DB::table('v_project')->where('id', $id)->first();
+        
+        $users = DB::select("select * from users where status = 1 order by name");
+        return view('project.detail', compact('data', 'users', 'teste'));
     }
 
     protected function update(Request $request, $id)

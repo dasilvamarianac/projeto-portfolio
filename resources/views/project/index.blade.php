@@ -57,7 +57,7 @@
 											<i class="fas fa-info"></i>
 										</button>
 										<button type="button" class="btn btn-icon btn-round btn-info" 
-										onclick="window.location='{{ url("project/edit/$row->id") }}'"
+										onclick="window.location='{{ url("project/$row->id") }}'"
 										>
 											<i class="fas fa-pencil-alt"></i>
 										</button>

@@ -106,7 +106,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="components/avatars.html">
+                                        <a href="/member">
                                            <i class="fas fa-user-friends"></i>
                                             <p>Membros</p>
                                         </a>
