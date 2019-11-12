@@ -259,7 +259,7 @@
             var del = origem.data('delid')
             var modal = $(this)
             modal.find('#delid').val(del);
-        })
+        });
     </script>
 </body>
 </html>

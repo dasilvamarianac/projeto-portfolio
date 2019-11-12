@@ -11,9 +11,9 @@
         <p>Deseja realmente excluir este indicador? </p>
       </div>
       <div class="modal-footer">  
-        <form method="post" action="{{ route('indicator.destroy', 1) }}" enctype="multipart/form-data" id="form_del">  
+        <form method="post" action="{{ route('projectindicator.destroy', 1) }}" enctype="multipart/form-data" id="form_del">  
           @csrf 
-          @method('PATCH')
+          @method('DELETE')
           <div class="col-md-6">
               <input id="delid" type="hidden" class="form-control" name="id">            
               <input id="status" type="hidden" class="form-control @error('status') is-invalid @enderror" name="status"required autocomplete="status" autofocus value="0">
@@ -23,7 +23,7 @@
                 </span>
               @enderror
           </div>
-          <input type="submit" name="destroy" class="btn btn-primary input-lg" value="Excluir" />
+          <button type="submit" class="btn btn-primary input-lg"> Excluir </button>
         </form>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>

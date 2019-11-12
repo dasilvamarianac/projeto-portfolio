@@ -24,7 +24,7 @@
                                     </a>
                                 @endif
                                 <a href="/members/{{$data->id}}" class="btn btn-default btn-round mr-2">Membros</a>
-                                <a href="/projeindicators/{{$data->id}}" class="btn btn-default btn-round">Indicadores</a>
+                                <a href="{{ route('projectindicator.index', ['id' => $data->id] ) }}" class="btn btn-default btn-round">Indicadores</a>
                             </div>
                         </div>
                     </div>

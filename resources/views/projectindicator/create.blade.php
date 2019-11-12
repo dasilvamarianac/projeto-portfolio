@@ -6,13 +6,12 @@
         <div class="page-header">
             <h4 class="page-title">Associar indicador</h4>
         </div>
-
         <div class="row justify-content-center">
             <div class="col-md-8">
-            <div class="card">
+            <div class="card">    
                 <div class="card-header">Associar indicador</div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('indicator.store') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('projectindicator.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label for="indicator" class="col-md-4 col-form-label text-md-right">Indicador</label>
@@ -28,7 +27,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="status" class="col-md-4 col-form-label text-md-right">Risco</label>
+                            <label for="status" class="col-md-4 col-form-label text-md-right">Status</label>
 
                             <div class="col-md-6">
                                 <select id="status" class="form-control" name="status" required>
@@ -40,33 +39,32 @@
                                     <option value="7">Em Andamento</option>
                                     <option value="8">Encerrado</option>
                                     <option value="9">Cancelado</option>
-
                                 </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="max" class="col-md-4 col-form-label text-md-right">Máximo</label>
-
-                            <div class="col-md-6">
-                                <input id="max" type="text" class="form-control" name="max" required autocomplete="max" autofocus >
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="min" class="col-md-4 col-form-label text-md-right">Mínimo</label>
 
                             <div class="col-md-6">
-                                <input id="min" type="text" class="form-control" name="min" required autocomplete="min" autofocus >
+                                <input id="min" type="text" class="form-control" name="min_value" required autocomplete="min" autofocus >
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="max" class="col-md-4 col-form-label text-md-right">Máximo</label>
+
                             <div class="col-md-6">
-                                <input id="project" type="hidden" class="form-control" name="project">
+                                <input id="max" type="text" class="form-control" name="max_value" required autocomplete="max" autofocus >
+                            </div>
+                        </div>                        
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input id="project" type="hidden" class="form-control" name="project" value = "$id">
                             </div>
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <input type="submit" name="create" class="btn btn-primary input-lg" value="Salvar" />
-                                <button class="btn btn-secondary" type="button" onclick="window.location='{{ route('indicator.index') }}'">Cancelar</button>
+                                <button class="btn btn-secondary" type="button" onclick="window.location='{{ route('projectindicator.index') }}'">Cancelar</button>
                             </div>
                         </div>
                     </form>

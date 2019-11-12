@@ -1,84 +1,78 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\ProjectIndicator;
+use DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 
 class ProjectIndicatorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $data = DB::table('v_projectindicators')->get();
+        return view('projectindicator.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $data = DB::select("select * from indicators where status = 1 order by name");
+        return view('projectindicator.create', compact('data'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
-    {
-        //
+    {     
+
+        $request->validate([
+            'project'   =>   'required',
+            'indicator' =>   'required',
+            'status'    =>   'required',
+            'max_value' =>   'required',
+            'min_value' =>   'required',
+        ]);
+
+        ProjectIndicator::create($request->all());
+
+        return redirect('/projectindicator')->with('success', 'Indicador criado com sucesso!'); 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $data = ProjectIndicator::findOrFail($id);
+        return view('projectindicator.edit', compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $data = DB::table('v_projectindicators')->where('id', $id)->first();
+        return view('projectindicator.edit', compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    protected function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'status'    =>   'required',
+            'max_value' =>   'required',
+            'min_value' =>   'required'
+            ]);
+            ProjectIndicator::whereId($id)->update($validatedData);
+            return redirect('/projectindicator')->with('success', 'Indicador alterado com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy( Request $request, $id)
     {
-        //
+        $data = ProjectIndicator::findOrFail($request->id);
+        $data->delete();
+  
+        return redirect()->route('projectindicator.index')
+                        ->with('success','Indicador excluído com sucesso!');
     }
 }

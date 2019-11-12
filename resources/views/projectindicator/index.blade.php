@@ -13,39 +13,45 @@
     	@endif
         <div class="row ">
             <div class="col-lg-12">
-            	<button class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  onclick="window.location='{{ route('indicator.create') }}'">
-            		<i class="fas fa-plus"></i> Novo</button>
+            	<a class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  href="{{ route('projectindicator.create') }}">
+            		<i class="fas fa-plus"></i> Novo </a>
             </div>
         </div>
         <div class="card">
-            <div class="card-header">Indicadores</div>
+            <div class="card-header">Indicadores do Projeto</div>
                 <div class="card-body">
                 	<div class="table-responsive">
 						<table id="multi-filter-select" class="display table table-striped table-hover" cellspacing="0" width="100%">
 							<thead>
 								<tr>
-				                    <th>Nome</th>
-				                    <th>Descrição</th>
+									<th>Status</th>
+				                    <th>Indicador</th>
+				                    <th>Máximo</th>
+				                    <th>Mínimo</th>
 				                    <th>Ações</th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-				                    <th>Nome</th>
-				                    <th>Descrição</th>
+									<th>Status</th>
+				                    <th>Indicador</th>              
+				                    <th>Máximo</th>
+				                    <th>Mínimo</th>
 								</tr>
 							</tfoot>
 							<tbody>
 								@foreach($data as $row)
 								<tr>
-									<td>{{ $row->name}}</td>
-									<td>{{ $row->desc}}</td>
+									<td>{{ $row->status_name}}</td>
+									<td>{{ $row->name}}</td>	
+									<td>{{ $row->min_value}}</td>
+									<td>{{ $row->max_value}}</td>
 									<td>
-										<button type="button" class="btn btn-icon btn-round btn-info" 
-										onclick="window.location='{{ url("indicator/$row->id") }}'"
-										>
-											<i class="fas fa-pencil-alt"></i>
-										</button>
+										<a href="{{ route('projectindicator.edit',$row->id) }}">
+											<button  class="btn btn-icon btn-round btn-info"  >
+												<i class="fas fa-pencil-alt"></i>
+											</button>
+										</a>
 										<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
 											<i class="fas fa-trash-alt"></i>
 										</button>
@@ -60,7 +66,7 @@
         </div>
     </div>
 </div>
-@include('indicator/delete')
+@include('projectindicator/delete')
 
 @endsection
 
