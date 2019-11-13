@@ -44,24 +44,24 @@
 								@foreach($data as $row)
 								<tr>
 									<td>{{$row->name}}</td>
-									<td>{{$row->manager}}</td>
+									<td>{{$row->manager_name}}</td>
 									<td>
-										<span class="badge badge-secondary">			{{$row->status}}
+										<span class="badge badge-secondary">			{{$row->status_name}}
 										</span>
 									</td>
 									<td>{{$row->expected_date}}</td>
 									<td>
-										<button type="button" class="btn btn-icon btn-round btn-secondary" 
+										<button type="button" class="btn btn-icon btn-round btn-secondary mb-1 mt-1" 
 										onclick="window.location='{{ url("project/$row->id") }}'"
 										>
 											<i class="fas fa-info"></i>
 										</button>
-										<button type="button" class="btn btn-icon btn-round btn-info" 
+										<button type="button" class="btn btn-icon btn-round btn-info mb-1" 
 										onclick="window.location='{{ url("project/$row->id") }}'"
 										>
 											<i class="fas fa-pencil-alt"></i>
 										</button>
-										<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
+										<button type="button" class="btn btn-icon btn-round btn-danger mb-1" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
 											<i class="fas fa-trash-alt"></i>
 										</button>
 									</td>

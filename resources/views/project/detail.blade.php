@@ -9,9 +9,9 @@
                                 <h5 class="text-white op-7 mb-2">{{$data->desc}}</h5>
                             </div>
                             <div class="ml-md-auto py-2 py-md-0">
-                                @if($data->status == "Em Cadastro")
+                                @if($data->status == 1)
                                     <a class="btn btn-white btn-border btn-round mr-2">
-                                        {{$data->status}}
+                                        {{$data->status_name}}
                                     </a>
                                 @else
                                     <a href="/members/{{$data->id}}" class="btn btn-default btn-round mr-2">
@@ -23,8 +23,9 @@
                                         Acompanhamento
                                     </a>
                                 @endif
-                                <a href="/members/{{$data->id}}" class="btn btn-default btn-round mr-2">Membros</a>
-                                <a href="{{ route('projectindicator.index', ['id' => $data->id] ) }}" class="btn btn-default btn-round">Indicadores</a>
+                                <a href="{{ url('/project/member/'.$data->id) }}" class="btn btn-default btn-round">Membros</a>
+                                
+                                <a href="{{ url('/project/indicator/'.$data->id) }}" class="btn btn-default btn-round">Indicadores</a>
                             </div>
                         </div>
                     </div>

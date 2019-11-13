@@ -16,9 +16,9 @@ class ProjectIndicatorController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index($id)
     {
-        $data = DB::table('v_projectindicators')->get();
+        $data = DB::table('v_projectindicators')->where('project', $id)->get();
         return view('projectindicator.index', compact('data'));
     }
 

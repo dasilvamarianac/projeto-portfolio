@@ -20,3 +20,6 @@ Route::resource('indicator','IndicatorController');
 Route::resource('project','ProjectController');
 Route::resource('member','MemberController');
 Route::resource('projectindicator','ProjectIndicatorController');
+Route::get('/project/indicator/{id}', 'ProjectIndicatorController@index');
+Route::resource('projectmember','ProjectMemberController');
+Route::get('/project/member/{id}', 'ProjectMemberController@index');
