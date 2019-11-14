@@ -21,6 +21,8 @@ class StatusChangeController extends Controller
     public function store(Request $request)
     {     
 
+        $status = $request->status + 1;
+
         $request->validate([
             'project'     =>   'required',
             'responsible' =>   'required',
@@ -29,7 +31,7 @@ class StatusChangeController extends Controller
 
         StatusChange::create($request->all());
 
-        Project::where('id', $request->project)->update(array('status' => $request->status));
+        Project::where('id', $request->project)->update(array('status' => $status ));
         return back();
     }
 

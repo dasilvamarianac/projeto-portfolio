@@ -28,21 +28,21 @@
             <div class="col-md-6">
               <select id="status" class="form-control" name="status" required>
                 @if($data->status == 1)
-                <option value="2">Em Análise</option>
+                <option value="1">Em Análise</option>
                 @elseif($data->status == 2)
-                <option value="3">Análise Realizada</option>
+                <option value="2">Análise Realizada</option>
                 @elseif($data->status == 3)
-                <option value="4">Análise Aprovada</option>
+                <option value="3">Análise Aprovada</option>
                 @elseif($data->status == 4)
-                <option value="5">Iniciado</option>
+                <option value="4">Iniciado</option>
                 @elseif($data->status == 5)
-                <option value="6">Planejado</option>
+                <option value="5">Planejado</option>
                 @elseif($data->status == 6)
-                <option value="7">Em Andamento</option>
+                <option value="6">Em Andamento</option>
                 @elseif($data->status == 7)
-                <option value="8">Encerrado</option>
+                <option value="7">Encerrado</option>
                 @endif
-                <option value="9">Cancelado</option>
+                <option value="8">Cancelado</option>
               </select>
             </div>
           </div>
@@ -62,7 +62,6 @@
       <div class="modal-footer">  
           <div class="col-md-8">
               <input id="delid" type="hidden" class="form-control" name="id">            
-              <input id="status" type="hidden" class="form-control @error('status') is-invalid @enderror" name="status"required autocomplete="status" autofocus value="0">
               @error('status')
                 <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
