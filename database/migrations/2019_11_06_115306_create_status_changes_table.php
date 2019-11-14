@@ -19,7 +19,6 @@ class CreateStatusChangesTable extends Migration
             $table->integer('project');
             $table->integer('responsible');
             $table->integer('status');
-            $table->date('date');
         });
     }
 

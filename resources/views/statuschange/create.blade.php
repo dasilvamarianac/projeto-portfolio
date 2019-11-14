@@ -2,18 +2,18 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Inclusão de membro</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Atualizar Status</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form method="post" action="{{ route('projectmember.store') }}" enctype="multipart/form-data" id="form_del">  
+        <form method="post" action="{{ route('statuschange.store') }}" enctype="multipart/form-data" id="form_create">  
           @csrf 
           @method('POST')
           <div class="form-group row">
-            <div class="col-md-6">
-              <input id="project" type="hidden" class="form-control" name="project" value = "{{$id}}">            
+            <div class="col-md-8">
+              <input id="project" type="hidden" class="form-control" name="project" value = "{{$data->id}}">            
 
               @error('status')
                 <span class="invalid-feedback" role="alert">
@@ -23,9 +23,33 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="indicator" class="col-md-4 col-form-label text-md-right">Membro</label>
+            <label for="status" class="col-md-4 col-form-label text-md-right">Status</label>
+
             <div class="col-md-6">
-              <select id="member"  class="form-control" name="member" required>
+              <select id="status" class="form-control" name="status" required>
+                @if($data->status == 1)
+                <option value="2">Em Análise</option>
+                @elseif($data->status == 2)
+                <option value="3">Análise Realizada</option>
+                @elseif($data->status == 3)
+                <option value="4">Análise Aprovada</option>
+                @elseif($data->status == 4)
+                <option value="5">Iniciado</option>
+                @elseif($data->status == 5)
+                <option value="6">Planejado</option>
+                @elseif($data->status == 6)
+                <option value="7">Em Andamento</option>
+                @elseif($data->status == 7)
+                <option value="8">Encerrado</option>
+                @endif
+                <option value="9">Cancelado</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="indicator" class="col-md-4 col-form-label text-md-right">Responsável</label>
+            <div class="col-md-6">
+              <select id="responsible"  class="form-control" name="responsible" required>
                 @foreach($members as $row)
                   <option value="{{$row->id}}">
                     {{$row->name}}
@@ -36,7 +60,7 @@
           </div>
       </div>
       <div class="modal-footer">  
-          <div class="col-md-6">
+          <div class="col-md-8">
               <input id="delid" type="hidden" class="form-control" name="id">            
               <input id="status" type="hidden" class="form-control @error('status') is-invalid @enderror" name="status"required autocomplete="status" autofocus value="0">
               @error('status')

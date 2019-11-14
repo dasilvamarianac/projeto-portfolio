@@ -56,11 +56,12 @@
 										>
 											<i class="fas fa-info"></i>
 										</button>
-										<button type="button" class="btn btn-icon btn-round btn-info mb-1" 
-										onclick="window.location='{{ url("project/$row->id") }}'"
+										<a href="/project/edit/{{$row->id}}">
+											<button type="button" class="btn btn-icon btn-round btn-info mb-1" 
 										>
-											<i class="fas fa-pencil-alt"></i>
-										</button>
+												<i class="fas fa-pencil-alt"></i>
+											</button>
+										</a>
 										<button type="button" class="btn btn-icon btn-round btn-danger mb-1" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
 											<i class="fas fa-trash-alt"></i>
 										</button>

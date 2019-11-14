@@ -5,27 +5,22 @@
                     <div class="page-inner py-5">
                         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                             <div>
-                                <h2 class="text-white pb-2 fw-bold">{{$data->name}}</h2>
+                                <h2  class="text-white pb-2 fw-bold">{{$data->name}}</h2>
                                 <h5 class="text-white op-7 mb-2">{{$data->desc}}</h5>
                             </div>
                             <div class="ml-md-auto py-2 py-md-0">
-                                @if($data->status == 1)
-                                    <a class="btn btn-white btn-border btn-round mr-2">
-                                        {{$data->status_name}}
-                                    </a>
-                                @else
-                                    <a href="/members/{{$data->id}}" class="btn btn-default btn-round mr-2">
-                                        {{$data->status}}
-                                    </a>
-                                @endif
-                                @if($data->risk == "Alto")
-                                    <a class="btn btn-white btn-border btn-round mr-2">
+                                <a href="" data-toggle="modal" data-target="#createmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
+                                    Status
+                                </a>
+                                
+                                <a href="{{ url('/project/member/'.$data->id) }}" class="btn btn-secondary btn-round mr-2 mt-2">Membros</a>
+                                
+                                <a href="{{ url('/project/indicator/'.$data->id) }}" class="btn btn-secondary btn-round mr-2 mt-2">Indicadores</a>
+                                @if($data->risk == 2)
+                                    <a href="" class="btn btn-secondary btn-round mr-2 mt-2">
                                         Acompanhamento
                                     </a>
                                 @endif
-                                <a href="{{ url('/project/member/'.$data->id) }}" class="btn btn-default btn-round">Membros</a>
-                                
-                                <a href="{{ url('/project/indicator/'.$data->id) }}" class="btn btn-default btn-round">Indicadores</a>
                             </div>
                         </div>
                     </div>
@@ -36,7 +31,7 @@
                             <div class="card card-primary ">
                                 <div class="card-body">
                                     <h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Membros do projeto</h4>
-                                    <h3 class="mb-4 fw-bold">17</h1>
+                                    <h3 class="mb-4 fw-bold">{{$total}}</h1>
                                     <h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Informações gerais</h4>
                                     <div id="activeUsersChart"></div>
                                     <h4 class="mt-2 mb-0 fw-bold">Data de início</h4>
@@ -57,15 +52,15 @@
                                     </ul>
                                     <h4 class="mb-0 fw-bold">Gerente</h4>
                                     <ul class="list-unstyled">
-                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->manager}}</small> </li>
+                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->manager_name}}</small> </li>
                                     </ul>
                                     <h4 class="mb-0 fw-bold">Líder</h4>
                                     <ul class="list-unstyled">
-                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->leader}}</small> </li>
+                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->leader_name}}</small> </li>
                                     </ul>
                                     <h4 class="mb-0 fw-bold">Líder do Escritório</h4>
                                     <ul class="list-unstyled">
-                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->office_leader}}</small></li>
+                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->office_leader_name}}</small></li>
                                     </ul>
                                 </div>
                             </div>
@@ -73,7 +68,7 @@
                         <div class="col-md-8">
                             <div class="card full-height">
                                 <div class="card-header">
-                                    <div class="card-title">Andamento</div>
+                                    <div class="card-title">Status: {{$data->status_name}}</div>
                                 </div>
                                 <div class="card-body">
                                     <ol class="activity-feed">
@@ -133,3 +128,4 @@
                 </div>
             </div>
 @endsection
+@include('statuschange/create')

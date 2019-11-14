@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Project;
+use App\ProjectMember;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -53,7 +54,6 @@ class ProjectController extends Controller
 
     public function edit($id)
     {
-
         $data = Project::findOrFail($id);
         $users = DB::select("select * from users where status = 1 order by name");
         return view('project.edit', compact('data', 'users'));
@@ -62,9 +62,9 @@ class ProjectController extends Controller
     public function show($id)
     {
         $data = DB::table('v_project')->where('id', $id)->first();
-        
-        $users = DB::select("select * from users where status = 1 order by name");
-        return view('project.detail', compact('data', 'users', 'teste'));
+        $total = ProjectMember::where('project', $id)->count();
+        $members = DB::select("select distinct * from members where status = 1 and id in (select member from project_members where project = ".$id.")");
+        return view('project.detail', compact('data', 'members','total'));
     }
 
     protected function update(Request $request, $id)
