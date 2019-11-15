@@ -265,23 +265,31 @@
 
             scope = document.getElementById('scope'); 
             just = document.getElementById('just'); 
+            scopeinp = document.getElementById('scopeinp'); 
+            justinp = document.getElementById('justinp'); 
 
 
                 if (this.value == '3') {
 
                     scope.style.display = '';
                     just.style.display = '';
+                    scopeinp.required = true;
+                    justinp.required = true;
 
                 }else if(this.value == '8'){
 
 
                     scope.style.display = 'none';
                     just.style.display = '';
+                    scopeinp.required = false;
+                    justinp.required = true;
 
                 }else{
 
                     scope.style.display = 'none';
                     just.style.display = 'none';
+                    scopeinp.required = false;
+                    justinp.required = false;
                 }
         });
     </script>

@@ -66,7 +66,7 @@
             <label for="desc" class="col-md-4 col-form-label text-md-right">Justificativa</label>
 
             <div class="col-md-6">
-              <textarea name="justification"   cols="40" rows="5" class="form-control input-lg"  maxlength="500" ></textarea>
+              <textarea name="justification"   cols="40" rows="5" class="form-control input-lg"  maxlength="500" id="justinp" {{ $data->status == 3 ? 'required':''}} ></textarea>
             </div>
           </div>
            
@@ -78,19 +78,13 @@
             <label for="desc" class="col-md-4 col-form-label text-md-right">Escopo Aprovado</label>
 
             <div class="col-md-6">
-              <input type="file" name="scope" value="" />
+              <input type="file" name="scope" id="scopeinp" {{ $data->status == 3 ? 'required':''}} />
             </div>
           </div>
-
       </div>
       <div class="modal-footer">  
           <div class="col-md-8">
               <input id="delid" type="hidden" class="form-control" name="id">            
-              @error('status')
-                <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-                </span>
-              @enderror
           </div>
           <button type="submit" class="btn btn-primary input-lg"> Salvar </button>
         </form>

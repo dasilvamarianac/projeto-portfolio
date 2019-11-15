@@ -17,7 +17,7 @@
     <div class="wrapper">
         <div class="main-header">
             <!-- Logo Header -->
-            <div class="logo-header" data-background-color="blue2"  
+            <div class="logo-header" data-background-color="blue2">  
                 <a href="index.html" class="logo">
                     <img src="{{ asset('img/logo.svg')}}"  alt="navbar brand" class="navbar-brand">
                 </a>

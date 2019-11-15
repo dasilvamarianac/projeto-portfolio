@@ -14,11 +14,18 @@
                                 </a>
                                 @endif
                                 <a href="{{ url('/project/member/'.$data->id) }}" class="btn btn-secondary btn-round mr-2 mt-2">Membros</a>
-                                
+
                                 <a href="{{ url('/project/indicator/'.$data->id) }}" class="btn btn-secondary btn-round mr-2 mt-2">Indicadores</a>
+                                
+                                @if(count($indicators) > 0)
+                                    <a href="" data-toggle="modal" data-target="#valuermodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
+                                    Indicadores T
+                                    </a>
+                                @endif
+
                                 @if($data->risk == 2)
-                                    <a href="" class="btn btn-secondary btn-round mr-2 mt-2">
-                                        Acompanhamento
+                                    <a href="" data-toggle="modal" data-target="#progressmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
+                                    Acompanhamento
                                     </a>
                                 @endif
                             </div>
@@ -127,5 +134,7 @@
                     </div>
                 </div>
             </div>
-@endsection
 @include('statuschange/create')
+@include('progress/create')
+@include('indicatorvalue/create')
+@endsection

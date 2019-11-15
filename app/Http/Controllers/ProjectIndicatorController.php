@@ -19,14 +19,15 @@ class ProjectIndicatorController extends Controller
     public function index($id)
     {
         $data = DB::table('v_projectindicators')->where('project', $id)->get();
-        return view('projectindicator.index', compact('data'));
+        return view('projectindicator.index', compact('data','id'));
     }
 
-    public function create()
+    public function create($id)
     {
         $data = DB::select("select * from indicators where status = 1 order by name");
-        return view('projectindicator.create', compact('data'));
+        return view('projectindicator.create', compact('data','id'));
     }
+
 
     public function store(Request $request)
     {     
@@ -41,7 +42,8 @@ class ProjectIndicatorController extends Controller
 
         ProjectIndicator::create($request->all());
 
-        return redirect('/projectindicator')->with('success', 'Indicador criado com sucesso!'); 
+        return back();
+
     }
 
     public function show($id)
@@ -72,7 +74,6 @@ class ProjectIndicatorController extends Controller
         $data = ProjectIndicator::findOrFail($request->id);
         $data->delete();
   
-        return redirect()->route('projectindicator.index')
-                        ->with('success','Indicador excluído com sucesso!');
+        return back();
     }
 }

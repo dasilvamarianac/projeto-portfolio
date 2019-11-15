@@ -13,7 +13,7 @@
     	@endif
         <div class="row ">
             <div class="col-lg-12">
-            	<a class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  href="{{ route('projectindicator.create') }}">
+            	<a class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  href="new/{{$id}}">
             		<i class="fas fa-plus"></i> Novo </a>
             </div>
         </div>

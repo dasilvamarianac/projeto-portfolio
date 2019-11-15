@@ -58,7 +58,7 @@
                         </div>                        
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <input id="project" type="hidden" class="form-control" name="project" value = "$id">
+                                <input id="project" type="hidden" class="form-control" name="project" value = "{{$id}}">
                             </div>
                         </div>
                         <div class="form-group row mb-0">

@@ -20,7 +20,6 @@ class CreateProgressesTable extends Migration
             $table->integer('user');
             $table->integer('status');
             $table->text('inform');
-            $table->date('date');
         });
     }
 

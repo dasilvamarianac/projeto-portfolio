@@ -42,7 +42,7 @@ class ProjectController extends Controller
             'leader'        =>   $request->leader,
             'manager'       =>   $request->manager,
             'office_leader' =>   $request->office_leader,
-            'risk' =>   $request->risk
+            'risk'          =>   $request->risk
 
         );
 
@@ -64,7 +64,17 @@ class ProjectController extends Controller
         $data = DB::table('v_project')->where('id', $id)->first();
         $total = ProjectMember::where('project', $id)->count();
         $members = DB::select("select distinct * from members where status = 1 and id in (select member from project_members where project = ".$id.")");
-        return view('project.detail', compact('data', 'members','total'));
+
+        $indicators = DB::select("select pi.*, i.name 
+            from    project_indicators as pi, 
+                    indicators as i, 
+                    projects as p
+            where   pi.project = p.id
+                and pi.indicator = i.id
+                and p.status = pi.status
+                and p.id = ".$id);
+        
+        return view('project.detail', compact('data', 'members','total', 'indicators'));
     }
 
     protected function update(Request $request, $id)

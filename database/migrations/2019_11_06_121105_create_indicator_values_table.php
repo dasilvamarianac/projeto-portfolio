@@ -18,7 +18,6 @@ class CreateIndicatorValuesTable extends Migration
             $table->timestamps();
             $table->integer('indicator_project');
             $table->float('value');
-            $table->date('date');
         });
     }
 
