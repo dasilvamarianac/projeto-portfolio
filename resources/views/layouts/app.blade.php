@@ -260,6 +260,30 @@
             var modal = $(this)
             modal.find('#delid').val(del);
         });
+
+        document.getElementById('statusproj').addEventListener('change', function () {
+
+            scope = document.getElementById('scope'); 
+            just = document.getElementById('just'); 
+
+
+                if (this.value == '3') {
+
+                    scope.style.display = '';
+                    just.style.display = '';
+
+                }else if(this.value == '8'){
+
+
+                    scope.style.display = 'none';
+                    just.style.display = '';
+
+                }else{
+
+                    scope.style.display = 'none';
+                    just.style.display = 'none';
+                }
+        });
     </script>
 </body>
 </html>

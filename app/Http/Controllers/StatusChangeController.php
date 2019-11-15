@@ -29,9 +29,19 @@ class StatusChangeController extends Controller
             'status'      =>   'required'
         ]);
 
+        if($request->file('scope')){
+            $scope = $request->file('scope');
+            $new_name = rand() . '.' . $scope->getClientOriginalExtension();
+            $scope->move(public_path('images'), $new_name);
+        }else{
+            $new_name = null;
+        }
+        
+
+
         StatusChange::create($request->all());
 
-        Project::where('id', $request->project)->update(array('status' => $status ));
+        Project::where('id', $request->project)->update(array('status' => $status, 'scope' => $new_name ));
         return back();
     }
 

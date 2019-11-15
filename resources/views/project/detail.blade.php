@@ -9,10 +9,10 @@
                                 <h5 class="text-white op-7 mb-2">{{$data->desc}}</h5>
                             </div>
                             <div class="ml-md-auto py-2 py-md-0">
-                                <a href="" data-toggle="modal" data-target="#createmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
+                                @if($data->status != 8 && $data->status != 9)<a href="" data-toggle="modal" data-target="#createmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
                                     Status
                                 </a>
-                                
+                                @endif
                                 <a href="{{ url('/project/member/'.$data->id) }}" class="btn btn-secondary btn-round mr-2 mt-2">Membros</a>
                                 
                                 <a href="{{ url('/project/indicator/'.$data->id) }}" class="btn btn-secondary btn-round mr-2 mt-2">Indicadores</a>

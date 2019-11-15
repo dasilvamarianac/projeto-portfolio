@@ -23,10 +23,10 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="status" class="col-md-4 col-form-label text-md-right">Novo Status</label>
+            <label for="status" class="col-md-4 col-form-label text-md-right">Status</label>
 
             <div class="col-md-6">
-              <select id="statusproj" class="form-control" name="status" required>
+              <select id="status" class="form-control" name="status" required>
                 @if($data->status == 1)
                 <option value="1">Em Análise</option>
                 @elseif($data->status == 2)
@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="indicator" class="col-md-4 col-form-label text-md-right">Último Responsável</label>
+            <label for="indicator" class="col-md-4 col-form-label text-md-right">Responsável última etapa</label>
             <div class="col-md-6">
               <select id="responsible"  class="form-control" name="responsible" required>
                 @foreach($members as $row)
@@ -58,30 +58,6 @@
               </select>
             </div>
           </div>
-          @if($data->status == 3 || $data->status == 8)
-          <div class="form-group row"  id="just">
-          @else
-          <div class="form-group row"  id="just" style="display:none;">
-          @endif
-            <label for="desc" class="col-md-4 col-form-label text-md-right">Justificativa</label>
-
-            <div class="col-md-6">
-              <textarea name="justification"   cols="40" rows="5" class="form-control input-lg"  maxlength="500" ></textarea>
-            </div>
-          </div>
-           
-          @if($data->status == 3)
-          <div class="form-group row"  id="scope">
-          @else
-          <div class="form-group row"  id="scope" style="display:none;">
-          @endif
-            <label for="desc" class="col-md-4 col-form-label text-md-right">Escopo Aprovado</label>
-
-            <div class="col-md-6">
-              <input type="file" name="scope" value="" />
-            </div>
-          </div>
-
       </div>
       <div class="modal-footer">  
           <div class="col-md-8">
