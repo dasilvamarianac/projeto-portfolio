@@ -78,7 +78,8 @@
             <label for="desc" class="col-md-4 col-form-label text-md-right">Escopo Aprovado</label>
 
             <div class="col-md-6">
-              <input type="file" name="scope" id="scopeinp" {{ $data->status == 3 ? 'required':''}} />
+              <input accept="application/pdf" type="file" name="scope" id="scopeinp" {{ $data->status == 3 ? 'required':''}} />
+              <input type="hidden" name="MAX_FILE_SIZE" value="2097152" /> 
             </div>
           </div>
       </div>

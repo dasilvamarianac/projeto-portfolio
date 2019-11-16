@@ -29,16 +29,10 @@
 				                    <th>Ações</th>
 								</tr>
 							</thead>
-							<tfoot>
-								<tr>
-									<th>Nome</th>
-				                    <th>Ações</th>
-								</tr>
-							</tfoot>
 							<tbody>
 								@foreach($data as $row)
 								<tr>
-									<td>{{ $row->name}}</td>
+									<td style="width:800px">{{ $row->name}}</td>
 									<td>
 										<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
 											<i class="fas fa-trash-alt"></i>

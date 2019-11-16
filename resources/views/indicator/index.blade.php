@@ -29,12 +29,6 @@
 				                    <th>Ações</th>
 								</tr>
 							</thead>
-							<tfoot>
-								<tr>
-				                    <th>Nome</th>
-				                    <th>Descrição</th>
-								</tr>
-							</tfoot>
 							<tbody>
 								@foreach($data as $row)
 								<tr>

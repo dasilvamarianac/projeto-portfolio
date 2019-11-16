@@ -28,3 +28,7 @@ Route::get('/project/member/{id}', 'ProjectMemberController@index');
 Route::resource('statuschange','StatusChangeController');
 Route::resource('progress','ProgressController');
 Route::resource('indicatorvalue','IndicatorValueController');
+Route::get('generate-pdf/{id}','IndicatorController@generatePDF');
+Route::get('report/{id}','IndicatorController@report');
+Route::get('reports','IndicatorController@reportindex');
+Route::get('cancelemail', 'EmailController@sendcancellations');

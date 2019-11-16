@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\ProjectMember;
+use App\Project;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Auth;
+
 
 
 class ProjectMemberController extends Controller
@@ -33,7 +36,20 @@ class ProjectMemberController extends Controller
             'member' =>   'required',
         ]);
 
+
+        $proj = Project::findOrFail($request->project);
+
+        $cad = count(DB::select("select * from project_indicators pi,
+                    project_members pm
+                    where pi.project = pm.project
+                    and pi.project =" . $request->project));
+
+        if($cad > 0 && $proj->status == 1){
+           Project::where('id', $request->project)->update(array('status' => 2)); 
+        }
+
         ProjectMember::create($request->all());
+
 
         return redirect('/project/member/'.$request->project)->with('success', 'Indicador criado com sucesso!'); 
     }

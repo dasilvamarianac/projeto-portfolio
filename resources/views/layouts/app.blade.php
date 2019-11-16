@@ -123,13 +123,13 @@
                             <div class="collapse" id="rels">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="components/avatars.html">
+                                        <a href="/report/all">
                                             <i class="fas fa-layer-group"></i>
                                             <p>Geral</p>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="components/avatars.html">
+                                        <a href="/reports">
                                             <i class="fas fa-file-invoice-dollar"></i>
                                             <p>Projeto</p>
                                         </a>

@@ -6,18 +6,6 @@
         <div class="page-header">
             <h4 class="page-title">Projetos</h4>
 	    </div>
-	    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    	@endif
-        <div class="row ">
-            <div class="col-lg-12">
-            	<button class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  onclick="window.location='{{ route('project.create') }}'">
-            		<i class="fas fa-plus"></i> Novo
-            	</button>
-            </div>
-        </div>
         <div class="card">
             <div class="card-header">Projetos</div>
                 <div class="card-body">
@@ -43,23 +31,12 @@
 									</td>
 									<td>{{$row->expected_date}}</td>
 									<td>
-										<button type="button" class="btn btn-icon btn-round btn-secondary mb-1 mt-1" 
-										onclick="window.location='{{ url("project/$row->id") }}'"
+										<a href="report/{{$row->id}}">
+											<button type="button" class="btn btn-icon btn-round btn-info mb-1" 
 										>
-											<i class="fas fa-info"></i>
-										</button>
-										@if($row->status <= 8)
-											<a href="/project/edit/{{$row->id}}">
-												<button type="button" class="btn btn-icon btn-round btn-info mb-1" 
-											>
-													<i class="fas fa-pencil-alt"></i>
-												</button>
-											</a>
-
-											<button type="button" class="btn btn-icon btn-round btn-danger mb-1" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
-												<i class="fas fa-trash-alt"></i>
+												<i class="fas fa-file-alt"></i>
 											</button>
-										@endif
+										</a>
 									</td>
 								</tr>
 								@endforeach
@@ -71,7 +48,5 @@
         </div>
     </div>
 </div>
-@include('project/delete')
-
 @endsection
 

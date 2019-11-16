@@ -37,8 +37,6 @@
                                     <option value="5">Iniciado</option>
                                     <option value="6">Planejado</option>
                                     <option value="7">Em Andamento</option>
-                                    <option value="8">Encerrado</option>
-                                    <option value="9">Cancelado</option>
                                 </select>
                             </div>
                         </div>

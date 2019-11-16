@@ -30,13 +30,6 @@
 				                    <th>Ações</th>
 								</tr>
 							</thead>
-							<tfoot>
-								<tr>
-				                    <th>Nome</th>
-				                    <th>Email</th>
-				                    <th>Perfil</th>
-								</tr>
-							</tfoot>
 							<tbody>
 								@foreach($data as $row)
 								<tr>

@@ -9,25 +9,29 @@
                                 <h5 class="text-white op-7 mb-2">{{$data->desc}}</h5>
                             </div>
                             <div class="ml-md-auto py-2 py-md-0">
-                                @if($data->status != 8 && $data->status != 9)<a href="" data-toggle="modal" data-target="#createmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
-                                    Status
-                                </a>
-                                @endif
-                                <a href="{{ url('/project/member/'.$data->id) }}" class="btn btn-secondary btn-round mr-2 mt-2">Membros</a>
-
-                                <a href="{{ url('/project/indicator/'.$data->id) }}" class="btn btn-secondary btn-round mr-2 mt-2">Indicadores</a>
+                                @if($data->status != 8 && $data->status != 9)
+                                    @if($data->status != 1)
+                                        <a href="" data-toggle="modal" data-target="#createmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
+                                            Status
+                                        </a>
+                                    @endif
                                 
-                                @if(count($indicators) > 0)
-                                    <a href="" data-toggle="modal" data-target="#valuermodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
-                                    Indicadores T
-                                    </a>
+                                    <a href="{{ url('/project/member/'.$data->id) }}" class="btn btn-secondary btn-round mr-2 mt-2">Membros</a>
+
+                                    <a href="{{ url('/project/indicator/'.$data->id) }}" class="btn btn-secondary btn-round mr-2 mt-2">Indicadores</a>
+
+                                    @if(count($indicators) > 0)
+                                        <a href="" data-toggle="modal" data-target="#valuermodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
+                                        Indicadores T
+                                        </a>
+                                    @endif
+                                    @if($data->risk == 2)
+                                        <a href="" data-toggle="modal" data-target="#progressmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
+                                        Acompanhamento
+                                        </a>
+                                    @endif
                                 @endif
 
-                                @if($data->risk == 2)
-                                    <a href="" data-toggle="modal" data-target="#progressmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
-                                    Acompanhamento
-                                    </a>
-                                @endif
                             </div>
                         </div>
                     </div>

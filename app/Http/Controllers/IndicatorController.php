@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Indicator;
-use DB;
+use App\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use DB;
+use PDF;
 
 
 class IndicatorController extends Controller
@@ -69,5 +71,36 @@ class IndicatorController extends Controller
             Indicator::whereId($id)->update($validatedData);
             return redirect('/indicator')->with('success', 'Indicador alterado com sucesso!'); 
         }
+    }
+    public function generatePDF($id)
+    {
+        if($id == 'all'){  
+            $proj = DB::table('v_project')->get();
+        }
+        else{
+            $proj = DB::table('v_project')->where('id', $id)->get();
+        }
+        $ind = DB::table('v_projectindicators')->get();
+        $value= DB::select("select *, DATE_FORMAT(created_at, '%d-%b-%Y') as 'date' from indicator_values order by indicator_project, created_at");
+        $pdf = PDF::loadView('indicator.reportdownload', compact('id','proj','ind', 'value'));
+        return $pdf->download('relatorio_geral.pdf');
+    }
+
+    public function report($id)
+    {
+        if($id == 'all'){  
+            $proj = DB::table('v_project')->get();
+        }
+        else{
+            $proj = DB::table('v_project')->where('id', $id)->get();
+        }
+        $ind = DB::table('v_projectindicators')->get();
+        $value= DB::select("select *, DATE_FORMAT(created_at, '%d-%b-%Y') as 'date' from indicator_values order by indicator_project, created_at");
+        return view('indicator.report', compact('id', 'proj','ind', 'value'));
+    }
+    public function reportindex()
+    {
+        $data = DB::table('v_project')->get();
+        return view('indicator.reportindex', compact('data'));
     }
 }

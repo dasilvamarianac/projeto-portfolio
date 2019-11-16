@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\ProjectIndicator;
+use App\Project;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -40,6 +41,19 @@ class ProjectIndicatorController extends Controller
             'min_value' =>   'required',
         ]);
 
+        
+
+        $proj = Project::findOrFail($request->project);
+
+        $cad = count(DB::select("select * from project_indicators pi,
+                    project_members pm
+                    where pi.project = pm.project
+                    and pi.project =" . $request->project));
+
+        if($cad > 0 && $proj->status == 1){
+           Project::where('id', $request->project)->update(array('status' => 2)); 
+        }
+        
         ProjectIndicator::create($request->all());
 
         return back();

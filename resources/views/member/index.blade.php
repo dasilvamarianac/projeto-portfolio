@@ -28,15 +28,10 @@
 				                    <th>Ações</th>
 								</tr>
 							</thead>
-							<tfoot>
-								<tr>
-				                    <th>Nome</th>
-								</tr>
-							</tfoot>
 							<tbody>
 								@foreach($data as $row)
 								<tr>
-									<td>{{ $row->name}}</td>
+									<td style="width:700px">{{ $row->name}}</td>
 									<td>
 										<button type="button" class="btn btn-icon btn-round btn-info" 
 										onclick="window.location='{{ url("member/$row->id") }}'"

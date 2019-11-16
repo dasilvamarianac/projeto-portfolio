@@ -6,8 +6,10 @@ use App\Project;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 
 class StatusChangeController extends Controller
@@ -22,24 +24,46 @@ class StatusChangeController extends Controller
     {     
 
         $status = $request->status + 1;
+        $project = $request->project;
+        $user = $request->responsible;
+        $new_name = null;
 
-        $request->validate([
+        
+
+        if($status == 9 ){
+
+            $proj = Project::findOrFail($project);
+            $form_data = array(
+                'project'      =>   $project,
+                'responsible'  =>   $user,
+                'status'       =>   $proj->status
+            );
+
+            StatusChange::create($form_data);
+
+            $form_data_can = array(
+                'project'      =>   $project,
+                'responsible'  =>   Auth::user()->id,
+                'status'       =>   $status
+            );
+
+            StatusChange::create($form_data_can);
+        }else{
+
+            $request->validate([
             'project'     =>   'required',
             'responsible' =>   'required',
             'status'      =>   'required'
-        ]);
+            ]);
 
-        if($request->file('scope')){
-            $scope = $request->file('scope');
-            $new_name = rand() . '.' . $scope->getClientOriginalExtension();
-            $scope->move(public_path('images'), $new_name);
-        }else{
-            $new_name = null;
+            if($request->file('scope')){
+                $scope = $request->file('scope');
+                $new_name = rand() . '.' . $scope->getClientOriginalExtension();
+                $scope->move(public_path('escopos'), $new_name);
+            }
+
+            StatusChange::create($request->all());
         }
-        
-
-
-        StatusChange::create($request->all());
 
         Project::where('id', $request->project)->update(array('status' => $status, 'scope' => $new_name ));
         return back();
