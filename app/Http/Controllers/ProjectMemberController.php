@@ -35,9 +35,10 @@ class ProjectMemberController extends Controller
             'project'   =>   'required',
             'member' =>   'required',
         ]);
-
-
+        ProjectMember::create($request->all());
+        
         $proj = Project::findOrFail($request->project);
+
 
         $cad = count(DB::select("select * from project_indicators pi,
                     project_members pm
@@ -48,8 +49,7 @@ class ProjectMemberController extends Controller
            Project::where('id', $request->project)->update(array('status' => 2)); 
         }
 
-        ProjectMember::create($request->all());
-
+        
 
         return redirect('/project/member/'.$request->project)->with('success', 'Indicador criado com sucesso!'); 
     }

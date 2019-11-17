@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\ProjectIndicator;
 use App\Project;
 use DB;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;  
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -40,9 +40,8 @@ class ProjectIndicatorController extends Controller
             'max_value' =>   'required',
             'min_value' =>   'required',
         ]);
-
+        ProjectIndicator::create($request->all());
         
-
         $proj = Project::findOrFail($request->project);
 
         $cad = count(DB::select("select * from project_indicators pi,
@@ -54,9 +53,9 @@ class ProjectIndicatorController extends Controller
            Project::where('id', $request->project)->update(array('status' => 2)); 
         }
         
-        ProjectIndicator::create($request->all());
+        
 
-        return back();
+        return redirect('/project/indicator/'.$request->project)->with('success', 'Indicador criado com sucesso!'); 
 
     }
 
@@ -80,7 +79,8 @@ class ProjectIndicatorController extends Controller
             'min_value' =>   'required'
             ]);
             ProjectIndicator::whereId($id)->update($validatedData);
-            return redirect('/projectindicator')->with('success', 'Indicador alterado com sucesso!');
+
+            return redirect('/project/indicator/'.$request->project)->with('success', 'Indicador alterado com sucesso!'); 
     }
 
     public function destroy( Request $request, $id)

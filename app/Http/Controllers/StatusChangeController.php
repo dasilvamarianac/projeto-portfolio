@@ -26,6 +26,7 @@ class StatusChangeController extends Controller
         $status = $request->status + 1;
         $project = $request->project;
         $user = $request->responsible;
+        $just = $request->justification;
         $new_name = null;
 
         
@@ -34,9 +35,10 @@ class StatusChangeController extends Controller
 
             $proj = Project::findOrFail($project);
             $form_data = array(
-                'project'      =>   $project,
-                'responsible'  =>   $user,
-                'status'       =>   $proj->status
+                'project'       =>  $project,
+                'responsible'   =>  $user,
+                'status'        =>  $proj->status,
+                'justification' =>  $just
             );
 
             StatusChange::create($form_data);

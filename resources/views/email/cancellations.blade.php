@@ -1,2 +1,5 @@
-<h1>{{ $title }}</h1>
-<p>This is my first Email using laravel 5.7</p>
+    <h1>Relatório Mensal de Projetos Cancelados</h1>
+
+	@foreach($projects as $row)
+		<h2>{{ $row->date}} - {{ $row->name}}</h2>
+	@endforeach
