@@ -27,14 +27,4 @@ class EmailController extends Controller
             });
         }         
     }
-
-    public function sendindicators($id)
-    { 
-        $proj = DB::table('v_project')->where('id', $id)->get();
-        Mail::send('email.indicators', $data, function($message) {
- 
-            $message->to('dasilva.marianac@gmail.com', 'Mariana')
-                    ->subject('Portfoli - Projetos Cancelados');
-        });
-    }
 }

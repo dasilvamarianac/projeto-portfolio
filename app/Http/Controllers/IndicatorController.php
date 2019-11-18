@@ -75,7 +75,10 @@ class IndicatorController extends Controller
     public function generatePDF($id)
     {
         if($id == 'all'){  
-            $proj = DB::table('v_project')->get();
+            $proj = DB::table('v_project')->where([
+                                ['status', '!=', '9']
+                            ])
+                    ->get();;
         }
         else{
             $proj = DB::table('v_project')->where('id', $id)->get();
@@ -89,10 +92,19 @@ class IndicatorController extends Controller
     public function report($id)
     {
         if($id == 'all'){  
-            $proj = DB::table('v_project')->get();
+            $proj = DB::table('v_project')
+                    ->where([
+                                ['status', '!=', '9']
+                            ])
+                    ->get();
         }
         else{
-            $proj = DB::table('v_project')->where('id', $id)->get();
+            $proj = DB::table('v_project')
+                    ->where([
+                                ['id', '=', $id],
+                                ['status', '!=', '9']
+                            ])
+                    ->get();
         }
         $ind = DB::table('v_projectindicators')->get();
         $value= DB::select("select *, DATE_FORMAT(created_at, '%d-%b-%Y') as 'date' from indicator_values order by indicator_project, created_at");
@@ -100,7 +112,11 @@ class IndicatorController extends Controller
     }
     public function reportindex()
     {
-        $data = DB::table('v_project')->get();
+        $data = DB::table('v_project')
+                ->where([
+                            ['status', '!=', '9']
+                        ])
+                ->get();
         return view('indicator.reportindex', compact('data'));
     }
 }

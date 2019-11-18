@@ -26,6 +26,13 @@ class IndicatorValueController extends Controller
         
         $value = $request->value;
 
+        $request->validate([
+            'value'     =>   'required',
+            'indicator_project' =>   'required'
+        ]);
+
+        IndicatorValue::create($request->all()); 
+
         if ($value > $ind->max_value || $value < $ind->min_value){
             
             $data['indicators'] = DB::table('v_outindicators')
@@ -35,7 +42,7 @@ class IndicatorValueController extends Controller
                                 ])->get();
 
 
-            if(count($data['indicators']) >= 2){
+            if(count($data['indicators']) >= 3){
                 
                 $data['projects'] = DB::table('v_project')->where('id', $ind->project)->get();
 
@@ -53,14 +60,7 @@ class IndicatorValueController extends Controller
                 });
             }
             
-        }
-
-        $request->validate([
-            'value'     =>   'required',
-            'indicator_project' =>   'required'
-        ]);
-
-        IndicatorValue::create($request->all());    
+        }   
 
         return back();
     }
