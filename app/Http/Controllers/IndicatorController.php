@@ -78,10 +78,14 @@ class IndicatorController extends Controller
             $proj = DB::table('v_project')->where([
                                 ['status', '!=', '9']
                             ])
-                    ->get();;
+                    ->get();
         }
         else{
-            $proj = DB::table('v_project')->where('id', $id)->get();
+            $proj = DB::table('v_project')->where([
+                                ['id', '=', $id],
+                                ['status', '!=', '9']
+                            ])
+                    ->get();
         }
         $ind = DB::table('v_projectindicators')->get();
         $value= DB::select("select *, DATE_FORMAT(created_at, '%d-%b-%Y') as 'date' from indicator_values order by indicator_project, created_at");

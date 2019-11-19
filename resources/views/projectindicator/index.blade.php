@@ -12,7 +12,12 @@
         </div>
     	@endif
         <div class="row ">
-            <div class="col-lg-12">
+        	<div class="col-lg-1">
+				<a href="/project/{{$id}}" class="btn btn-link col-lg-2 mb-3 ml-10 float-right">
+            		<i class="icon-arrow-left"></i> 
+            	</a>
+		    </div>
+            <div class="col-lg-11">
             	<a class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  href="new/{{$id}}">
             		<i class="fas fa-plus"></i> Novo </a>
             </div>

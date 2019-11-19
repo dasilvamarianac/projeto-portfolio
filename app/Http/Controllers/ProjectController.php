@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Project;
 use App\ProjectMember;
+use App\ProjectIndicator;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -62,7 +63,8 @@ class ProjectController extends Controller
     public function show($id)
     {
         $data = DB::table('v_project')->where('id', $id)->first();
-        $total = ProjectMember::where('project', $id)->count();
+        $totalmem = ProjectMember::where('project', $id)->count();
+        $totalind = ProjectIndicator::where('project', $id)->count();
         $members = DB::select("select distinct * from members where status = 1 and id in (select member from project_members where project = ".$id.")");
 
         $indicators = DB::select("select pi.*, i.name 
@@ -74,7 +76,7 @@ class ProjectController extends Controller
                 and p.status = pi.status
                 and p.id = ".$id);
         
-        return view('project.detail', compact('data', 'members','total', 'indicators'));
+        return view('project.detail', compact('data', 'members','totalmem','totalind', 'indicators'));
     }
 
     protected function update(Request $request, $id)
