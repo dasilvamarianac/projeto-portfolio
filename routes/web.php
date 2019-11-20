@@ -32,3 +32,5 @@ Route::get('generate-pdf/{id}','IndicatorController@generatePDF');
 Route::get('report/{id}','IndicatorController@report');
 Route::get('reports','IndicatorController@reportindex');
 Route::get('cancelemail', 'EmailController@sendcancellations');
+Route::resource('permission','PermissionController');
+Route::get('/permission/edit/{id}', 'PermissionController@edit');

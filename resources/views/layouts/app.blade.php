@@ -152,7 +152,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="components/avatars.html">
+                                        <a href="/permission">
                                             <i class="fas fa-lock"></i>
                                             <p>Permissões</p>
                                         </a>
