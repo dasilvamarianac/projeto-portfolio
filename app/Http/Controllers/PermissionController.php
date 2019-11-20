@@ -49,4 +49,9 @@ class PermissionController extends Controller
 
             return back()->with('success', 'Permissões alteradas com Sucesso!'); 
     }
+    protected function CheckAccess()
+    {
+        $data = Permission::where('profile', Auth::user()->profile)->first();
+        return $data;
+    }
 }

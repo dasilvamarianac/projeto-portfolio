@@ -43,12 +43,31 @@ class UserController extends Controller
             User::whereId($request->id)->update($validatedData);
             return redirect('/user')->with('success', 'Usuário excluído com sucesso!');   
         }else{
-            $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
-                'profile' => 'required|integer',
-                //'password' => 'required|string|min:8|confirmed',
+
+            $data = User::findOrFail($id);
+            
+            $form_data = $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'profile' => ['required', 'integer']
             ]);
-            User::whereId($id)->update($validatedData);
+
+
+            if($request->password != '12345678'){
+                $validatedPass = $request->validate([
+                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                ]);
+                array_push($form_data['password'],Hash::make($validatedPass['password']));
+            }
+
+            if($request->email != $data->email){
+                $validatedEmail = $request->validate([
+                    'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
+                ]);
+                array_push($form_data['email'],$validatedEmail['email']);
+            }           
+
+            
+            User::whereId($id)->update($form_data);
             return redirect('/user')->with('success', 'Usuário alterado com sucesso!'); 
         }
     }

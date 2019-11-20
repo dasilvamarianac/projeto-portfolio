@@ -20,7 +20,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"required autocomplete="name" autofocus value="{{$data->name}}" readonly >
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"required autocomplete="name" autofocus value="{{$data->name}}" maxlength="255" >
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -34,8 +34,8 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-mail') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$data->email}}" required autocomplete="email" readonly>
-                                <input type="hidden" class="form-control" name="status" value="{{$data->status}}">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$data->email}}" required autocomplete="email" >
+                                <input type="hidden" class="form-control" name="status" value="{{$data->status}}" maxlength="100">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -49,7 +49,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Senha') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" value="{{$data->password}}">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" value="12345678" pattern=".{0}|.{8,}"  title="Necessário no mínimo 8 caractéres" maxlength="100">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -63,9 +63,9 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Senha') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" value="{{$data->password}}">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" value="12345678" pattern=".{0}|.{8,}" title="Necessário no mínimo 8 caractéres" maxlength="100">
                             </div>
-                        </div>
+                        </div> 
                         <div class="form-group row">
                             <label for="profile" class="col-md-4 col-form-label text-md-right">{{ __('Perfil') }}</label>
 
@@ -81,8 +81,6 @@
                                     {{$data->profile == 3 ? 'selected':''}}>{{ __('Líder de Escritório') }}</option>
                                     <option value="4" 
                                     {{$data->profile == 4 ? 'selected':''}}>{{ __('Alta Diretoria') }}</option>
-                                    <option value="5" 
-                                    {{$data->profile == 5 ? 'selected':''}}>{{ __('Membro Comum') }}</option>
                                 </select>
                             </div>
                         </div>
