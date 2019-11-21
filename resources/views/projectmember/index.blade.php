@@ -18,9 +18,11 @@
             	</a>
 		    </div>
             <div class="col-lg-11">
-            	<button type="button" class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right" data-toggle="modal" data-target="#createmodal" data-delid="{{$id}}">
-					<i class="fas fa-plus"></i> Novo
-				</button>
+            	@if($acesso['project_member'] > 1)
+	            	<button type="button" class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right" data-toggle="modal" data-target="#createmodal" data-delid="{{$id}}">
+						<i class="fas fa-plus"></i> Novo
+					</button>
+				@endif
             </div>
         </div>
         <div class="card">
@@ -39,9 +41,11 @@
 								<tr>
 									<td style="width:800px">{{ $row->name}}</td>
 									<td>
-										<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
-											<i class="fas fa-trash-alt"></i>
-										</button>
+										@if($acesso['project_member'] > 3)
+											<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
+												<i class="fas fa-trash-alt"></i>
+											</button>
+										@endif
 									</td>
 								</tr>
 								@endforeach

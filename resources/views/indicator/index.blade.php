@@ -13,8 +13,10 @@
     	@endif
         <div class="row ">
             <div class="col-lg-12">
-            	<button class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  onclick="window.location='{{ route('indicator.create') }}'">
-            		<i class="fas fa-plus"></i> Novo</button>
+            	@if($acesso['indicators'] > 1)
+            		<button class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  onclick="window.location='{{ route('indicator.create') }}'">
+            			<i class="fas fa-plus"></i> Novo</button>
+            	@endif
             </div>
         </div>
         <div class="card">
@@ -35,14 +37,19 @@
 									<td style="width:25%">{{ $row->name}}</td>
 									<td style="width:60%">{{ $row->desc}}</td>
 									<td style="width:15%">
-										<button type="button" class="btn btn-icon btn-round btn-info" 
-										onclick="window.location='{{ url("indicator/edit/$row->id") }}'"
-										>
+										@if($acesso['indicators'] > 2)
+											<button type="button" class="btn btn-icon btn-round btn-info" 
+										onclick="window.location='{{ url("indicator/edit/$row->id") }}'">
 											<i class="fas fa-pencil-alt"></i>
-										</button>
-										<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
-											<i class="fas fa-trash-alt"></i>
-										</button>
+											</button>
+										@endif
+											
+										
+										@if($acesso['indicators'] > 3)
+											<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
+												<i class="fas fa-trash-alt"></i>
+											</button>
+										@endif
 									</td>
 								</tr>
 								@endforeach

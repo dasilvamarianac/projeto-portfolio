@@ -26,13 +26,14 @@ class ProjectMemberController extends Controller
 
     public function index($id)
     {
-        if($this->acesso['project_member'] < 1) {
+        $acesso = $this->acesso;
+        if( $acesso['project_member'] < 1) {
                 return view('layouts.nopermission');
         }
         $data = DB::select("select m.name, pm.* from members as m, project_members as pm where project = ". $id ." and m.id = pm.member order by name");
         $members = DB::select("select distinct * from members where status = 1 and id not in (select member from project_members where project = ".$id.")");
 
-        return view('projectmember.index', compact('data', 'members', 'id'));
+        return view('projectmember.index', compact('data', 'members', 'id', 'acesso'));
     }
 
 

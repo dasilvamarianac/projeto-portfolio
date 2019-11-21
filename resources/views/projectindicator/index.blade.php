@@ -18,9 +18,12 @@
             	</a>
 		    </div>
             <div class="col-lg-11">
-            	<a class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  href="new/{{$id}}">
-            		<i class="fas fa-plus"></i> Novo </a>
-            </div>
+            	@if($acesso['project_indicators'] > 1)
+            		<a class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  href="new/{{$id}}">
+            			<i class="fas fa-plus"></i> Novo 
+            		</a>
+            	@endif
+            </div> 
         </div>
         <div class="card">
             <div class="card-header">Indicadores do Projeto</div>
@@ -52,14 +55,18 @@
 									<td>{{ $row->min_value}}</td>
 									<td>{{ $row->max_value}}</td>
 									<td>
-										<button type="button" class="btn btn-icon btn-round btn-info" 
-										onclick="window.location='{{ url("/project/indicator/edit/$row->id") }}'"
-										>
-											<i class="fas fa-pencil-alt"></i>
-										</button>
-										<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
-											<i class="fas fa-trash-alt"></i>
-										</button>
+										@if($acesso['project_indicators'] > 2)
+											<button type="button" class="btn btn-icon btn-round btn-info" 
+											onclick="window.location='{{ url("/project/indicator/edit/$row->id") }}'"
+											>
+												<i class="fas fa-pencil-alt"></i>
+											</button>
+										@endif
+										@if($acesso['project_indicators'] > 3)
+											<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
+												<i class="fas fa-trash-alt"></i>
+											</button>
+										@endif
 									</td>
 								</tr>
 								@endforeach

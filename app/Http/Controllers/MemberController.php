@@ -24,20 +24,22 @@ class MemberController extends Controller
 
     public function index()
     {
-        if($this->acesso['members'] < 1) {
+        $acesso = $this->acesso;
+        if( $acesso['members'] < 1) {
             return view('layouts.nopermission');
         }
 
         $data = Member::latest()->where('status', 1)->get();
-        return view('member.index', compact('data'));
+        return view('member.index', compact('data','acesso'));
     }
 
     public function create()
     {
-        if($this->acesso['members'] < 2) {
+        $acesso = $this->acesso;
+        if( $acesso['members'] < 2) {
             return view('layouts.nopermission');
         }
-        return view('member.create', compact('data'));
+        return view('member.create', compact('data','acesso'));
     }
 
     public function store(Request $request)
@@ -62,11 +64,12 @@ class MemberController extends Controller
 
     public function edit($id)
     {
-        if($this->acesso['members'] < 3) {
+        $acesso = $this->acesso;
+        if( $acesso['members'] < 3) {
             return view('layouts.nopermission');
         }
         $data = Member::findOrFail($id);
-        return view('member.edit', compact('data'));
+        return view('member.edit', compact('data','acesso'));
     }
 
     protected function update(Request $request, $id)

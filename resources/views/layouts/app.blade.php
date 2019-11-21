@@ -86,6 +86,13 @@
                 <div class="sidebar-content">
                     <ul class="nav nav-primary">
                         <li class="nav-item">
+                            <a  href="/">
+                                <i class="fas fa-home"></i>
+                                <p>Home</p>
+                            </a>
+                        </li>
+                        @if(($acesso['projects'] > 0) || ($acesso['indicators'] > 0) || ($acesso['members'] > 0))
+                        <li class="nav-item">
                             <a data-toggle="collapse" href="#port">
                                 <i class="fas far fa-lightbulb"></i>
                                 <p>Portfólio</p>
@@ -93,27 +100,35 @@
                             </a>
                             <div class="collapse" id="port">
                                 <ul class="nav nav-collapse">
-                                    <li>
+                                    @if($acesso['projects'] > 0)
+                                        <li>
                                         <a href="/project">
                                             <i class="fas fa-layer-group"></i>
                                             <p>Projetos</p>
                                         </a>
-                                    </li>
-                                    <li>
-                                        <a href="/indicator">
-                                            <i class="fas fas fa-thermometer-half"></i>
-                                            <p>Indicadores</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/member">
-                                           <i class="fas fa-user-friends"></i>
-                                            <p>Membros</p>
-                                        </a>
-                                    </li>
+                                        </li>
+                                    @endif
+                                    @if($acesso['indicators'] > 0)
+                                        <li>
+                                            <a href="/indicator">
+                                                <i class="fas fas fa-thermometer-half"></i>
+                                                <p>Indicadores</p>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if($acesso['members'] > 0)
+                                        <li>
+                                            <a href="/member">
+                                               <i class="fas fa-user-friends"></i>
+                                                <p>Membros</p>
+                                            </a>
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                         </li>
+                        @endif
+                        @if($acesso['reports'] > 0)
                         <li class="nav-item">
                             <a data-toggle="collapse" href="#rels">
                                 <i class="fas fas fa-file-alt"></i>
@@ -137,6 +152,8 @@
                                 </ul>
                             </div>
                         </li>
+                        @endif
+                        @if(($acesso['users'] > 0) || ($acesso['permissions'] > 0))
                         <li class="nav-item">
                             <a data-toggle="collapse" href="#configs">
                                 <i class="fas fa-cog"></i>
@@ -145,21 +162,26 @@
                             </a>
                             <div class="collapse" id="configs">
                                 <ul class="nav nav-collapse">
+                                    @if($acesso['users'] > 0)
                                     <li>
                                         <a href="/user">
                                             <i class="fas fa-user-friends"></i>
                                             <p>Usuários</p>
                                         </a>
                                     </li>
+                                    @endif
+                                    @if($acesso['permissions'] > 0)
                                     <li>
                                         <a href="/permission">
                                             <i class="fas fa-lock"></i>
                                             <p>Permissões</p>
                                         </a>
                                     </li>
+                                    @endif
                                 </ul>
                             </div>
                         </li>
+                        @endif
                     </ul>
                 </div>
             </div>

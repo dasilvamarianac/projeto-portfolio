@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
         $this->middleware(function($request, $next){
-            $this->acesso = Permission::where('profile',Auth::user()->profile)->first();
+        $this->acesso = Permission::where('profile',Auth::user()->profile)->first();
             return $next($request);
         });
     }
@@ -28,6 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $acesso = $this->acesso;
+        return view('home',compact('acesso'));
     }
 }

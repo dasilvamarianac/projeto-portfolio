@@ -26,19 +26,21 @@ class IndicatorController extends Controller
 
     public function index()
     {
-        if($this->acesso['indicators'] < 1) {
+        $acesso = $this->acesso;
+        if($acesso['indicators'] < 1) {
             return view('layouts.nopermission');
         }
         $data = Indicator::latest()->where('status', 1)->get();
-        return view('indicator.index', compact('data'));
+        return view('indicator.index', compact('data','acesso'));
     }
 
     public function create()
     {
-        if($this->acesso['indicators'] < 2) {
+        $acesso = $this->acesso;
+        if($acesso['indicators'] < 2) {
             return view('layouts.nopermission');
         }
-        return view('indicator.create', compact('data'));
+        return view('indicator.create', compact('data','acesso'));
     }
 
     public function store(Request $request)
@@ -65,11 +67,12 @@ class IndicatorController extends Controller
 
     public function edit($id)
     {
-        if($this->acesso['indicators'] < 3) {
+        $acesso = $this->acesso;
+        if($acesso['indicators'] < 3) {
             return view('layouts.nopermission');
         }
         $data = Indicator::findOrFail($id);
-        return view('indicator.edit', compact('data'));
+        return view('indicator.edit', compact('data','acesso'));
     }
 
     protected function update(Request $request, $id)
@@ -123,7 +126,8 @@ class IndicatorController extends Controller
 
     public function report($id)
     {
-        if($this->acesso['reports'] < 1) {
+        $acesso = $this->acesso;
+        if($acesso['reports'] < 1) {
             return view('layouts.nopermission');
         }
         if($id == 'all'){  
@@ -142,14 +146,15 @@ class IndicatorController extends Controller
         }
         $ind = DB::table('v_projectindicators')->get();
         $value= DB::select("select *, DATE_FORMAT(created_at, '%d-%b-%Y') as 'date' from indicator_values order by indicator_project, created_at");
-        return view('indicator.report', compact('id', 'proj','ind', 'value'));
+        return view('indicator.report', compact('id', 'proj','ind', 'value','acesso'));
     }
     public function reportindex()
     {
-        if($this->acesso['reports'] < 1) {
+        $acesso = $this->acesso;
+        if($acesso['reports'] < 1) {
             return view('layouts.nopermission');
         }
         $data = DB::table('v_project')->get();
-        return view('indicator.reportindex', compact('data'));
+        return view('indicator.reportindex', compact('data','acesso'));
     }
 }

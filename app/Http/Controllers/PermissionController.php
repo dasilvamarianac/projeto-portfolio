@@ -25,25 +25,27 @@ class PermissionController extends Controller
 
     public function index()
     {
-        if($this->acesso['permissions'] < 1) {
+        $acesso = $this->acesso;
+        if($acesso['permissions'] < 1) {
             return view('layouts.nopermission');
         }
         
-        return view('permission.index');
+        return view('permission.index',compact('data','acesso'));
     }
 
     public function edit($id)
     {
-        if($this->acesso['permissions'] < 3) {
+        $acesso = $this->acesso;
+        if($acesso['permissions'] > 3) {
             return view('layouts.nopermission');
         }
         $data = Permission::where('profile', $id)->first();
-        return view('permission.edit', compact('data'));
+        return view('permission.edit', compact('data','acesso'));
     }
 
     protected function update(Request $request, $id)
     {
-        if($this->acesso['permissions'] < 3) {
+        if($this->acesso['permissions'] > 3) {
             return view('layouts.nopermission');
         }
 
@@ -59,7 +61,8 @@ class PermissionController extends Controller
             'status_change'      =>   'required',
             'indicator_value'    =>   'required',
             'reports'            =>   'required',
-            'progress'           =>   'required'
+            'progress'           =>   'required',
+            'analysis'           =>   'required'
             ]);
             Permission::whereId($id)->update($validatedData);
 

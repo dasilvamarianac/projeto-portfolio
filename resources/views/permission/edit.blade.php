@@ -16,10 +16,10 @@
             <div class="card">
                 <div class="card-header">Permissões de Acesso</div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('permission.update', $data->id) }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('permission.update', $data->id) }}" enctype="multipart/form-data" >
                         @csrf
                         @method('PATCH')
-                        <div class="form-group row">
+                        <div class="form-group row" >
                             <label for="users" class="col-md-4 col-form-label text-md-right">Usuários</label>
                             <div class="col-md-6">
                                 <select id="users" class="form-control" name="users" required>
@@ -124,7 +124,6 @@
                             <div class="col-md-6">
                                 <select id="indicator_value" class="form-control" name="indicator_value" required>
                                     <option value="0" {{ $data->indicator_value == 0 ? 'selected':''}}>Nenhum</option>
-                                    <option value="1" {{ $data->indicator_value == 1 ? 'selected':''}}>Visualização</option>
                                     <option value="2" {{ $data->indicator_value == 2 ? 'selected':''}}>Inclusão</option>
                                 </select>
                             </div>
@@ -151,21 +150,25 @@
                         <div class="form-group row">
                             <label for="analysis" class="col-md-4 col-form-label text-md-right">Análise de Indicadores</label>
                             <div class="col-md-6">
-                                <select id="analysis" class="form-control" name="analysis" required>
+                                <select  id="analysis" class="form-control" name="analysis" required>
                                     <option value="0" {{ $data->analysis == 0 ? 'selected':''}}>Nenhum</option>
                                     <option value="1" {{ $data->analysis == 1 ? 'selected':''}}>Visualização</option>
                                 </select>
                             </div>
-                        </div>               
+                        </div> 
+                             
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <input id="id" type="hidden" class="form-control" name="id" value = "{{$data->id}}">
                             </div>
                         </div>
+                        
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
+                                @if($acesso['permissions'] > 2 ) 
                                 <input type="submit" name="update" class="btn btn-primary input-lg" value="Salvar" />
-                                <a href="/permission" class="btn btn-secondary"  >Cancelar</a>
+                                @endif
+                                <a href="/permission" class="btn btn-secondary"  >{{ $acesso['permissions'] > 2 ? 'Cancelar':'Voltar'}}</a>
                             </div>
                         </div>
                     </form>

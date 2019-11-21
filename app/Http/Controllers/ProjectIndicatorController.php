@@ -5,7 +5,7 @@ use App\ProjectIndicator;
 use App\Project;
 use App\Permission;
 use Auth;
-use DB;
+use DB; 
 use Illuminate\Http\Request;  
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -25,20 +25,22 @@ class ProjectIndicatorController extends Controller
 
     public function index($id)
     {
-        if($this->acesso['project_indicators'] < 1) {
+        $acesso = $this->acesso;
+        if( $acesso['project_indicators'] < 1) {
             return view('layouts.nopermission');
         }
         $data = DB::table('v_projectindicators')->where('project', $id)->get();
-        return view('projectindicator.index', compact('data','id'));
+        return view('projectindicator.index', compact('data','id','acesso'));
     }
 
     public function create($id)
     {
-        if($this->acesso['project_indicators'] < 2) {
+        $acesso = $this->acesso;
+        if( $acesso['project_indicators'] < 2) {
             return view('layouts.nopermission');
         }
         $data = DB::select("select * from indicators where status = 1 order by name");
-        return view('projectindicator.create', compact('data','id'));
+        return view('projectindicator.create', compact('data','id','acesso'));
     }
 
 
@@ -76,11 +78,12 @@ class ProjectIndicatorController extends Controller
 
     public function edit($id)
     {
-        if($this->acesso['project_indicators'] <3) {
+        $acesso = $this->acesso;
+        if( $acesso['project_indicators'] <3) {
             return view('layouts.nopermission');
         }
         $data = DB::table('v_projectindicators')->where('id', $id)->first();
-        return view('projectindicator.edit', compact('data'));
+        return view('projectindicator.edit', compact('data','acesso'));
     }
 
     protected function update(Request $request, $id)

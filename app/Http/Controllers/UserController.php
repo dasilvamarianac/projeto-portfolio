@@ -24,26 +24,29 @@ class UserController extends Controller
 
     public function index()
     {
-        if($this->acesso['indicators'] < 1) {
+        $acesso = $this->acesso;
+        if( $acesso['users'] < 1) {
             return view('layouts.nopermission');
         }
         
         $data = DB::table('v_users')->where('status', 1)->get();
-        return view('user.index', compact('data'));
+        return view('user.index', compact('data','acesso'));
      
     }
     public function create()
     {
-        if($this->acesso['users'] < 2) {
+        $acesso = $this->acesso;
+        if( $acesso['users'] < 2) {
             return view('layouts.nopermission');
         }
-        return view('user.create', compact('data'));
+        return view('user.create', compact('data','acesso'));
     }
 
     public function store(Request $request)
     {
 
-        if($this->acesso['users'] < 2) {
+        $acesso = $this->acesso;
+        if( $acesso['users'] < 2) {
             return view('layouts.nopermission');
         }    
 
@@ -67,17 +70,20 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        if($this->acesso['users'] < 3) {
+        $acesso = $this->acesso;
+        if( $acesso['users'] < 3) {
             return view('layouts.nopermission');
         }
         $data = User::findOrFail($id);
-        return view('user.edit', compact('data'));
+        return view('user.edit', compact('data','acesso'));
     } 
 
     protected function update(Request $request,  $id)
     {
+        $acesso = $this->acesso;
+        
         if ($request->status == 0){
-            if($this->acesso['users'] < 4) {
+            if( $acesso['users'] < 4) {
                 return view('layouts.nopermission');
             }
            $validatedData = $request->validate([
@@ -86,7 +92,7 @@ class UserController extends Controller
             User::whereId($request->id)->update($validatedData);
             return redirect('/user')->with('success', 'Usuário excluído com sucesso!');   
         }else{
-            if($this->acesso['users'] < 3) {
+            if( $acesso['users'] < 3) {
                 return view('layouts.nopermission');
             }
 

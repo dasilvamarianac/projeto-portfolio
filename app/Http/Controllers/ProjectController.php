@@ -5,6 +5,7 @@ use App\Project;
 use App\ProjectMember;
 use App\ProjectIndicator;
 use App\Permission;
+use App\Progress;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -26,20 +27,22 @@ class ProjectController extends Controller
 
     public function index()
     {
-        if($this->acesso['projects'] < 1) {
+        $acesso = $this->acesso;
+        if( $acesso['projects'] < 1) {
                 return view('layouts.nopermission');
         }
         $data = DB::table('v_project')->get();
-        return view('project.index', compact('data'));
+        return view('project.index', compact('data','acesso'));
     }
 
     public function create()
     {
-        if($this->acesso['projects'] < 2) {
+        $acesso = $this->acesso;
+        if( $acesso['projects'] < 2) {
                 return view('layouts.nopermission');
         }
         $users = DB::select("select * from users where status = 1 order by name");
-        return view('project.create', compact('users'));
+        return view('project.create', compact('users','acesso'));
     }
 
     public function store(Request $request)
@@ -68,17 +71,19 @@ class ProjectController extends Controller
 
     public function edit($id)
     {
-        if($this->acesso['projects'] < 3) {
+        $acesso = $this->acesso;
+        if( $acesso['projects'] < 3) {
                 return view('layouts.nopermission');
         }
         $data = Project::findOrFail($id);
         $users = DB::select("select * from users where status = 1 order by name");
-        return view('project.edit', compact('data', 'users'));
+        return view('project.edit', compact('data', 'users','acesso'));
     }
 
     public function show($id)
     {
-        if($this->acesso['project_detail'] < 1) {
+        $acesso = $this->acesso;
+        if( $acesso['project_detail'] < 1) {
                 return view('layouts.nopermission');
         }
         $data = DB::table('v_project')->where('id', $id)->first();
@@ -94,8 +99,14 @@ class ProjectController extends Controller
                 and pi.indicator = i.id
                 and p.status = pi.status
                 and p.id = ".$id);
+
+        $prog = DB::select("select count(1) from progresses
+                            where WEEK(CURDATE(), 3) = WEEK(created_at, 3)
+                            and project = ".$id);
+
+        $acomp = Progress::latest()->where('project', $id)->get();
         
-        return view('project.detail', compact('data', 'members','totalmem','totalind', 'indicators'));
+        return view('project.detail', compact('data', 'members','totalmem','totalind', 'indicators','acomp', 'prog','acesso'));
     }
 
     protected function update(Request $request, $id)

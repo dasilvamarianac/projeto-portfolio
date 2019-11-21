@@ -18,9 +18,11 @@
             	</a>
 		    </div>
             <div class="col-lg-11">
-            	<button class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  onclick="window.location='{{ route('project.create') }}'">
-            		<i class="fas fa-plus"></i> Novo
-            	</button>
+            	@if($acesso['projects'] > 1)
+	            	<button class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  onclick="window.location='{{ route('project.create') }}'">
+	            		<i class="fas fa-plus"></i> Novo
+	            	</button>
+            	@endif
             </div>
         </div>
         <div class="card">
@@ -55,16 +57,19 @@
 											<i class="fas fa-info"></i>
 										</button>
 										@if($row->status <= 8)
-											<a href="/project/edit/{{$row->id}}">
-												<button type="button" class="btn btn-icon btn-round btn-info mb-1" 
-											>
-													<i class="fas fa-pencil-alt"></i>
+											@if($acesso['projects'] > 2)
+												<a href="/project/edit/{{$row->id}}">
+													<button type="button" class="btn btn-icon btn-round btn-info mb-1" 
+												>
+														<i class="fas fa-pencil-alt"></i>
+													</button>
+												</a>
+											@endif
+											@if($acesso['projects'] > 3)
+												<button type="button" class="btn btn-icon btn-round btn-danger mb-1" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
+													<i class="fas fa-trash-alt"></i>
 												</button>
-											</a>
-
-											<button type="button" class="btn btn-icon btn-round btn-danger mb-1" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
-												<i class="fas fa-trash-alt"></i>
-											</button>
+											@endif
 										@endif
 									</td>
 								</tr>
