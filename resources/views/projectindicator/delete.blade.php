@@ -16,12 +16,7 @@
           @method('DELETE')
           <div class="col-md-6">
               <input id="delid" type="hidden" class="form-control" name="id">            
-              <input id="status" type="hidden" class="form-control @error('status') is-invalid @enderror" name="status"required autocomplete="status" autofocus value="0">
-              @error('status')
-                <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-                </span>
-              @enderror
+              <input id="status" type="hidden" class="form-control " name="status"required autocomplete="status" autofocus value="0">
           </div>
           <button type="submit" class="btn btn-primary input-lg"> Excluir </button>
         </form>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\ProjectIndicator;
 use App\Project;
 use App\Permission;
+use App\IndicatorValue;
 use Auth;
 use DB; 
 use Illuminate\Http\Request;  
@@ -107,8 +108,15 @@ class ProjectIndicatorController extends Controller
             return view('layouts.nopermission');
         }
         $data = ProjectIndicator::findOrFail($request->id);
+
+        $iv = IndicatorValue::where('indicator_project', $data->id)->count();
+        
+        if($iv > 0 ){
+            return redirect('/project/indicator/'.$data->project)->with('errors', 'Indicador não pode ser excluído pois já foi informado durante  progresso do Projeto ');
+        }
+
         $data->delete();
   
-        return back();
+        return redirect('/project/indicator/'.$data->project)->with('success', 'Indicador excluído com sucesso ');
     }
 }

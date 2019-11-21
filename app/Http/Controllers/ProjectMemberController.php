@@ -60,7 +60,7 @@ class ProjectMemberController extends Controller
            Project::where('id', $request->project)->update(array('status' => 2)); 
         }
 
-        return redirect('/project/member/'.$request->project)->with('success', 'Indicador criado com sucesso!'); 
+        return redirect('/project/member/'.$request->project)->with('success', 'Membro criado com sucesso!'); 
     }
 
     public function destroy( Request $request, $id)
@@ -69,8 +69,15 @@ class ProjectMemberController extends Controller
                 return view('layouts.nopermission');
         }
         $data = ProjectMember::findOrFail($request->id);
+
+        $mem = ProjectMember::where('project', $data->project)->count();
+        
+        if($mem == 1 ){
+            return redirect('/project/member/'.$data->project)->with('errors', 'Não é possível excluir todos os membros de um projeto.');
+        }
+
         $data->delete();
   
-        return back()->with('success','Membro excluído com sucesso!');
+        return redirect('/project/member/'.$data->project)->with('success', 'Membro excluído com sucesso '.  $mem);
     }
 }
