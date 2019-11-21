@@ -11,7 +11,6 @@
             <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Editar usuário') }}</div>
-
                 <div class="card-body">
                     <form method="post" action="{{ route('user.update', $data->id) }}" enctype="multipart/form-data">
                         @csrf

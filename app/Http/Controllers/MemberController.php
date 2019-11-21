@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Member;
+use App\Permission;
+use Auth;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,22 +16,35 @@ class MemberController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(function($request, $next){
+            $this->acesso = Permission::where('profile',Auth::user()->profile)->first();
+            return $next($request);
+        });
     }
 
     public function index()
     {
+        if($this->acesso['members'] < 1) {
+            return view('layouts.nopermission');
+        }
+
         $data = Member::latest()->where('status', 1)->get();
         return view('member.index', compact('data'));
     }
 
     public function create()
     {
+        if($this->acesso['members'] < 2) {
+            return view('layouts.nopermission');
+        }
         return view('member.create', compact('data'));
     }
 
     public function store(Request $request)
     {
-       
+        if($this->acesso['members'] < 2) {
+            return view('layouts.nopermission');
+        }
 
         $form_data = array(
             'name'    =>   $request->name,
@@ -37,30 +52,39 @@ class MemberController extends Controller
 
         Member::create($form_data);
 
-         return redirect('/member')->with('success', 'Membro criado com sucesso!'); 
+        return redirect('/member')->with('success', 'Membro criado com sucesso!'); 
     }
 
     public function show($id)
     {
-        $data = Member::findOrFail($id);
-        return view('member.edit', compact('data'));
+        return view('layouts.noroute');
     }
 
     public function edit($id)
     {
+        if($this->acesso['members'] < 3) {
+            return view('layouts.nopermission');
+        }
         $data = Member::findOrFail($id);
         return view('member.edit', compact('data'));
     }
 
     protected function update(Request $request, $id)
     {
+
         if ($request->status == 0){
+            if($this->acesso['members'] < 4) {
+                return view('layouts.nopermission');
+            }
            $validatedData = $request->validate([
                 'status' => 'required|integer',
             ]);
             Member::whereId($request->id)->update($validatedData);
             return redirect('/member')->with('success', 'Membro excluído com sucesso!');   
         }else{
+            if($this->acesso['members'] < 3) {
+                return view('layouts.nopermission');
+            }
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
             ]);

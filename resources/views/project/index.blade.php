@@ -43,7 +43,8 @@
 									<td style="width:260px">{{$row->name}}</td>
 									<td style="width:95px">{{$row->manager_name}}</td>
 									<td>
-										<span class="badge badge-{{$row->status_color}}">			{{$row->status_name}}
+										<span class="badge badge-{{$row->status_color}}">			
+											{{$row->status_name}}
 										</span>
 									</td>
 									<td>{{$row->expected_date}}</td>

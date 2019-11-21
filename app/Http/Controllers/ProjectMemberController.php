@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 use App\ProjectMember;
 use App\Project;
+use App\Permission;
+use Auth;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Auth;
 
 
 
@@ -17,10 +18,17 @@ class ProjectMemberController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(function($request, $next){
+            $this->acesso = Permission::where('profile',Auth::user()->profile)->first();
+            return $next($request);
+        });
     }
 
     public function index($id)
     {
+        if($this->acesso['project_member'] < 1) {
+                return view('layouts.nopermission');
+        }
         $data = DB::select("select m.name, pm.* from members as m, project_members as pm where project = ". $id ." and m.id = pm.member order by name");
         $members = DB::select("select distinct * from members where status = 1 and id not in (select member from project_members where project = ".$id.")");
 
@@ -30,7 +38,9 @@ class ProjectMemberController extends Controller
 
     public function store(Request $request)
     {     
-
+        if($this->acesso['project_member'] < 2) {
+                return view('layouts.nopermission');
+        }
         $request->validate([
             'project'   =>   'required',
             'member' =>   'required',
@@ -49,13 +59,14 @@ class ProjectMemberController extends Controller
            Project::where('id', $request->project)->update(array('status' => 2)); 
         }
 
-        
-
         return redirect('/project/member/'.$request->project)->with('success', 'Indicador criado com sucesso!'); 
     }
 
     public function destroy( Request $request, $id)
     {
+        if($this->acesso['project_member'] < 4) {
+                return view('layouts.nopermission');
+        }
         $data = ProjectMember::findOrFail($request->id);
         $data->delete();
   

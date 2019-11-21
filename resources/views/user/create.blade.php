@@ -13,7 +13,7 @@
                 <div class="card-header">{{ __('Novo usuário') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('user.store') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -49,6 +49,7 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" pattern=".{0}|.{8,}"   required title="Necessário no mínimo 8 caractéres" maxlength="100">
+                            </div>
                         </div>
 
                         <div class="form-group row">

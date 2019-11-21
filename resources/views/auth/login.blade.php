@@ -22,12 +22,8 @@
                     <img src="{{ asset('img/logo.svg')}}"  alt="navbar brand" class="navbar-brand">
                 </a>
             </div>
-            <!-- End Logo Header -->
-
-            <!-- Navbar Header -->
             <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">  
             </nav>
-            <!-- End Navbar -->
         </div>
         <div class="container">
             <div class="page-inner">
@@ -55,7 +51,6 @@
                                     @enderror
                                 </div>
                             </div>
-
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Senha') }}</label>
 
@@ -69,30 +64,11 @@
                                     @enderror
                                 </div>
                             </div>
-                            <!-- 
-                            <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="form-check">
-                                        <label class="form-check-label" for="remember">
-                                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                            <span class="form-check-sign">{{ __('Lembrar-me') }}</span>
-                                        </label>    
-                                    </div>
-                                </div>
-                            </div>
-                            -->
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Login') }}
                                     </button>
-                                <!-- 
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Esqueceu sua senha?') }}
-                                        </a>
-                                    @endif
-                                -->
                                 </div>
                             </div>
                         </form>

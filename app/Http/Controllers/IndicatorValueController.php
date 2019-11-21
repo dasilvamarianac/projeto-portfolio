@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\IndicatorValue;
 use App\ProjectIndicator;
+use App\Permission;
+use Auth;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,11 +19,21 @@ class IndicatorValueController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(function($request, $next){
+            $this->acesso = Permission::where('profile',Auth::user()->profile)->first();
+            return $next($request);
+        });
     }
 
 
     public function store(Request $request)
-    {     
+    {    
+
+
+        if($this->acesso['indicator_value'] < 3) {
+            return view('layouts.nopermission');
+        }
+
         $ind = ProjectIndicator::findOrFail($request->indicator_project);
         
         $value = $request->value;

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Indicator;
 use App\Project;
+use App\Permission;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -16,22 +18,35 @@ class IndicatorController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(function($request, $next){
+            $this->acesso = Permission::where('profile',Auth::user()->profile)->first();
+            return $next($request);
+        });
     }
 
     public function index()
     {
+        if($this->acesso['indicators'] < 1) {
+            return view('layouts.nopermission');
+        }
         $data = Indicator::latest()->where('status', 1)->get();
         return view('indicator.index', compact('data'));
     }
 
     public function create()
     {
+        if($this->acesso['indicators'] < 2) {
+            return view('layouts.nopermission');
+        }
         return view('indicator.create', compact('data'));
     }
 
     public function store(Request $request)
     {
-       
+
+        if($this->acesso['indicators'] < 2) {
+            return view('layouts.nopermission');
+        }    
 
         $form_data = array(
             'name'    =>   $request->name,
@@ -45,28 +60,37 @@ class IndicatorController extends Controller
 
     public function show($id)
     {
-        $data = Indicator::findOrFail($id);
-        return view('indicator.edit', compact('data'));
+        return view('layouts.noroute');
     }
 
     public function edit($id)
     {
+        if($this->acesso['indicators'] < 3) {
+            return view('layouts.nopermission');
+        }
         $data = Indicator::findOrFail($id);
         return view('indicator.edit', compact('data'));
     }
 
     protected function update(Request $request, $id)
     {
+        
         if ($request->status == 0){
+           if($this->acesso['indicators'] < 4) {
+                return view('layouts.nopermission');
+            } 
            $validatedData = $request->validate([
                 'status' => 'required|integer',
             ]);
             Indicator::whereId($request->id)->update($validatedData);
             return redirect('/indicator')->with('success', 'Indicador excluído com sucesso!');   
         }else{
+            if($this->acesso['indicators'] < 3) {
+                return view('layouts.nopermission');
+            }
             $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
-                'desc' => 'required|string|max:255',
+                'name' => 'required|string|max:100',
+                'desc' => 'required|string|max:500',
             ]);
             Indicator::whereId($id)->update($validatedData);
             return redirect('/indicator')->with('success', 'Indicador alterado com sucesso!'); 
@@ -74,27 +98,34 @@ class IndicatorController extends Controller
     }
     public function generatePDF($id)
     {
+        if($this->acesso['reports'] < 1) {
+            return view('layouts.nopermission');
+        }
         if($id == 'all'){  
             $proj = DB::table('v_project')->where([
                                 ['status', '!=', '9']
                             ])
                     ->get();
+            $name = 'relatorio_geral.pdf';
         }
         else{
             $proj = DB::table('v_project')->where([
-                                ['id', '=', $id],
-                                ['status', '!=', '9']
+                                ['id', '=', $id]
                             ])
                     ->get();
+            $name = 'relatorio_'.$id.'.pdf';
         }
         $ind = DB::table('v_projectindicators')->get();
         $value= DB::select("select *, DATE_FORMAT(created_at, '%d-%b-%Y') as 'date' from indicator_values order by indicator_project, created_at");
         $pdf = PDF::loadView('indicator.reportdownload', compact('id','proj','ind', 'value'));
-        return $pdf->download('relatorio_geral.pdf');
+        return $pdf->download($name);
     }
 
     public function report($id)
     {
+        if($this->acesso['reports'] < 1) {
+            return view('layouts.nopermission');
+        }
         if($id == 'all'){  
             $proj = DB::table('v_project')
                     ->where([
@@ -105,8 +136,7 @@ class IndicatorController extends Controller
         else{
             $proj = DB::table('v_project')
                     ->where([
-                                ['id', '=', $id],
-                                ['status', '!=', '9']
+                                ['id', '=', $id]
                             ])
                     ->get();
         }
@@ -116,11 +146,10 @@ class IndicatorController extends Controller
     }
     public function reportindex()
     {
-        $data = DB::table('v_project')
-                ->where([
-                            ['status', '!=', '9']
-                        ])
-                ->get();
+        if($this->acesso['reports'] < 1) {
+            return view('layouts.nopermission');
+        }
+        $data = DB::table('v_project')->get();
         return view('indicator.reportindex', compact('data'));
     }
 }

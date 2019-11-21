@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Permission;
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -13,8 +14,11 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        
         $this->middleware('auth');
+        $this->middleware(function($request, $next){
+            $this->acesso = Permission::where('profile',Auth::user()->profile)->first();
+            return $next($request);
+        });
     }
 
     /**
@@ -24,9 +28,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $variavel = "Teste parâmetro view";
-        return view('home',[
-            'title' => $variavel
-        ]);
+        return view('home');
     }
 }

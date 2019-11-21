@@ -13,7 +13,7 @@
     	@endif
         <div class="row ">
             <div class="col-lg-12">
-            	<button class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  onclick="window.location='{{ route('register') }}'">
+            	<button class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  onclick="window.location='{{ route('user.create') }}'">
             		<i class="fas fa-plus"></i> Novo</button>
             </div>
         </div>
@@ -31,14 +31,14 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($data as $row)
+								@foreach($data as $row) 
 								<tr>
-									<td>{{ $row->name}}</td>
-									<td>{{ $row->email}}</td>
-									<td>{{ $row->profiledesc}}</td>
-									<td>
+									<td style="width:30%">{{ $row->name}}</td>
+									<td style="width:35%">{{ $row->email}}</td>
+									<td style="width:20%">{{ $row->profiledesc}}</td>
+									<td style="width:15%">
 										<button type="button" class="btn btn-icon btn-round btn-info" 
-										onclick="window.location='{{ url("user/$row->id") }}'"
+										onclick="window.location='{{ url("user/edit/$row->id") }}'"
 										>
 											<i class="fas fa-pencil-alt"></i>
 										</button>

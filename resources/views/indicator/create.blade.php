@@ -18,7 +18,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">Nome</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus >
+                                <input id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus maxlength="35" >
                             </div>
                         </div>
 
@@ -26,14 +26,14 @@
                             <label for="desc" class="col-md-4 col-form-label text-md-right">Descrição</label>
 
                             <div class="col-md-6">
-                                <textarea name="desc" cols="40" rows="5" class="form-control input-lg"  maxlength="500" required></textarea>
+                                <textarea name="desc" cols="50" rows="3" class="form-control input-lg"  maxlength="75" required></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <input type="submit" name="create" class="btn btn-primary input-lg" value="Salvar" />
-                                <button class="btn btn-secondary" type="button" onclick="history.go(-1)">Cancelar</button>
+                                <button class="btn btn-secondary" type="button" onclick="window.location='{{ route('indicator.index') }}'">Cancelar</button>
                             </div>
                         </div>
                     </form>

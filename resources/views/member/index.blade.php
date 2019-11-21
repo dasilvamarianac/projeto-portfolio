@@ -31,10 +31,10 @@
 							<tbody>
 								@foreach($data as $row)
 								<tr>
-									<td style="width:700px">{{ $row->name}}</td>
+									<td style="width:85%">{{ $row->name}}</td>
 									<td>
 										<button type="button" class="btn btn-icon btn-round btn-info" 
-										onclick="window.location='{{ url("member/$row->id") }}'"
+										onclick="window.location='{{ url("member/edit/$row->id") }}'"
 										>
 											<i class="fas fa-pencil-alt"></i>
 										</button>

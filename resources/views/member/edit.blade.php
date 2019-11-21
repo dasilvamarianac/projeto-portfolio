@@ -27,7 +27,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <input type="submit" name="update" class="btn btn-primary input-lg" value="Salvar" />
-                               <button class="btn btn-secondary" type="button" onclick="history.go(-1)">Cancelar</button>
+                                <button class="btn btn-secondary" type="button" onclick="window.location='{{ route('member.index') }}'">Cancelar</button>
                             </div>
                         </div>
                     </form>

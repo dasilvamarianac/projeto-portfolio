@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\ProjectIndicator;
 use App\Project;
+use App\Permission;
+use Auth;
 use DB;
 use Illuminate\Http\Request;  
 use App\Http\Controllers\Controller;
@@ -15,16 +17,26 @@ class ProjectIndicatorController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(function($request, $next){
+            $this->acesso = Permission::where('profile',Auth::user()->profile)->first();
+            return $next($request);
+        });
     }
 
     public function index($id)
     {
+        if($this->acesso['project_indicators'] < 1) {
+            return view('layouts.nopermission');
+        }
         $data = DB::table('v_projectindicators')->where('project', $id)->get();
         return view('projectindicator.index', compact('data','id'));
     }
 
     public function create($id)
     {
+        if($this->acesso['project_indicators'] < 2) {
+            return view('layouts.nopermission');
+        }
         $data = DB::select("select * from indicators where status = 1 order by name");
         return view('projectindicator.create', compact('data','id'));
     }
@@ -32,7 +44,9 @@ class ProjectIndicatorController extends Controller
 
     public function store(Request $request)
     {     
-
+        if($this->acesso['project_indicators'] < 2) {
+            return view('layouts.nopermission');
+        }
         $request->validate([
             'project'   =>   'required',
             'indicator' =>   'required',
@@ -59,20 +73,21 @@ class ProjectIndicatorController extends Controller
 
     }
 
-    public function show($id)
-    {
-        $data = ProjectIndicator::findOrFail($id);
-        return view('projectindicator.edit', compact('data'));
-    }
 
     public function edit($id)
     {
+        if($this->acesso['project_indicators'] <3) {
+            return view('layouts.nopermission');
+        }
         $data = DB::table('v_projectindicators')->where('id', $id)->first();
         return view('projectindicator.edit', compact('data'));
     }
 
     protected function update(Request $request, $id)
     {
+        if($this->acesso['project_indicators'] <3) {
+            return view('layouts.nopermission');
+        }
         $validatedData = $request->validate([
             'status'    =>   'required',
             'max_value' =>   'required',
@@ -85,6 +100,9 @@ class ProjectIndicatorController extends Controller
 
     public function destroy( Request $request, $id)
     {
+        if($this->acesso['project_indicators'] <4) {
+            return view('layouts.nopermission');
+        }
         $data = ProjectIndicator::findOrFail($request->id);
         $data->delete();
   

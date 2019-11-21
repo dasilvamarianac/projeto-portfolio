@@ -32,11 +32,11 @@
 							<tbody>
 								@foreach($data as $row)
 								<tr>
-									<td>{{ $row->name}}</td>
-									<td>{{ $row->desc}}</td>
-									<td>
+									<td style="width:25%">{{ $row->name}}</td>
+									<td style="width:60%">{{ $row->desc}}</td>
+									<td style="width:15%">
 										<button type="button" class="btn btn-icon btn-round btn-info" 
-										onclick="window.location='{{ url("indicator/$row->id") }}'"
+										onclick="window.location='{{ url("indicator/edit/$row->id") }}'"
 										>
 											<i class="fas fa-pencil-alt"></i>
 										</button>
