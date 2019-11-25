@@ -11,11 +11,11 @@ class Indicator extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'desc', 'status',
+        'name', 'desc', 'status', 'creator',
     ];
 
     protected $hidden = [
-        'status',
+        'status', 'creator',
     ];
 
 }

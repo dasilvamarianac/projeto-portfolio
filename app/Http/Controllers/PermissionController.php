@@ -27,7 +27,7 @@ class PermissionController extends Controller
     {
         $acesso = $this->acesso;
         if($acesso['permissions'] < 1) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         
         return view('permission.index',compact('data','acesso'));
@@ -37,7 +37,7 @@ class PermissionController extends Controller
     {
         $acesso = $this->acesso;
         if($acesso['permissions'] > 3) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $data = Permission::where('profile', $id)->first();
         return view('permission.edit', compact('data','acesso'));
@@ -46,7 +46,7 @@ class PermissionController extends Controller
     protected function update(Request $request, $id)
     {
         if($this->acesso['permissions'] > 3) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
 
         $validatedData = $request->validate([

@@ -41,7 +41,7 @@
 									<td style="width:20%">{{ $row->profiledesc}}</td>
 									<td style="width:15%">
 										@if($acesso['users'] > 2)
-											<button type="button" class="btn btn-icon btn-round btn-info" 
+											<button type="button" data-toggle="tooltip" data-html="true" title="Editar" class="btn btn-icon btn-round btn-info" 
 										onclick="window.location='{{ url("user/edit/$row->id") }}'">
 											<i class="fas fa-pencil-alt"></i>
 											</button>
@@ -50,7 +50,7 @@
 										
 										@if($acesso['users'] > 3)
 											<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
-												<i class="fas fa-trash-alt"></i>
+												<i data-toggle="tooltip" data-html="true" title="Excluir" class="fas fa-trash-alt"></i>
 											</button>
 										@endif
 									</td>

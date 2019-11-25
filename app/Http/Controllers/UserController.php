@@ -26,7 +26,7 @@ class UserController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['users'] < 1) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         
         $data = DB::table('v_users')->where('status', 1)->get();
@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['users'] < 2) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         return view('user.create', compact('data','acesso'));
     }
@@ -47,7 +47,7 @@ class UserController extends Controller
 
         $acesso = $this->acesso;
         if( $acesso['users'] < 2) {
-            return view('layouts.nopermission');
+            return abort(401);
         }    
 
         $form_data = $request->validate([
@@ -65,14 +65,14 @@ class UserController extends Controller
 
     public function show($id)
     {
-        return view('layouts.noroute');
+        return abort(401);
     }
 
     public function edit($id)
     {
         $acesso = $this->acesso;
         if( $acesso['users'] < 3) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $data = User::findOrFail($id);
         return view('user.edit', compact('data','acesso'));
@@ -84,16 +84,16 @@ class UserController extends Controller
         
         if ($request->status == 0){
             if( $acesso['users'] < 4) {
-                return view('layouts.nopermission');
+                return abort(401);
             }
            $validatedData = $request->validate([
                 'status' => 'required|integer',
             ]);
             User::whereId($request->id)->update($validatedData);
-            return redirect('/user')->with('success', 'Usuário excluído com sucesso!');   
+            return back()->with('success', 'Usuário excluído com sucesso!');   
         }else{
-            if( $acesso['users'] < 3) {
-                return view('layouts.nopermission');
+            if( $acesso['users'] < 3 && $id != Auth::user()->id) {
+                return abort(401);
             }
 
             $data = User::findOrFail($id);

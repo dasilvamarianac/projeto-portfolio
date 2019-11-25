@@ -52,7 +52,7 @@
               <select id="responsible"  class="form-control" name="responsible" required>
                 @foreach($members as $row)
                   <option value="{{$row->id}}">
-                    {{$row->name}}
+                    {{$row->id}} - {{$row->name}}
                   </option>
                 @endforeach
               </select>

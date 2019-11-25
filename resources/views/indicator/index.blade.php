@@ -34,20 +34,26 @@
 							<tbody>
 								@foreach($data as $row)
 								<tr>
-									<td style="width:25%">{{ $row->name}}</td>
-									<td style="width:60%">{{ $row->desc}}</td>
-									<td style="width:15%">
+									<td style="width:25%">{{$row->name}}</td>
+									<td style="width:55%">{{$row->desc}}</td>
+									<td style="width:18%">
 										@if($acesso['indicators'] > 2)
-											<button type="button" class="btn btn-icon btn-round btn-info" 
+											<button data-toggle="tooltip" data-html="true" title="Editar" type="button" class="btn btn-icon btn-round btn-info" 
 										onclick="window.location='{{ url("indicator/edit/$row->id") }}'">
 											<i class="fas fa-pencil-alt"></i>
 											</button>
 										@endif
-											
-										
-										@if($acesso['indicators'] > 3)
+
+										@if($acesso['analysis'] > 0 && $row->creator == Auth::user()->id) 
+											<button data-toggle="tooltip" data-html="true" title="Analisar" type="button" class="btn btn-icon btn-round btn-secondary" 
+										onclick="window.location='{{ url("indicator/analyze/$row->id") }}'">
+											<i class="fas fa-chart-bar"></i>
+											</button>
+										@endif
+
+										@if($acesso['indicators'] > 3 )
 											<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
-												<i class="fas fa-trash-alt"></i>
+												<i data-toggle="tooltip" data-html="true" title="Excluir" class="fas fa-trash-alt"></i>
 											</button>
 										@endif
 									</td>

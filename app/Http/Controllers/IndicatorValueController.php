@@ -31,7 +31,7 @@ class IndicatorValueController extends Controller
 
 
         if($this->acesso['indicator_value'] < 3) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
 
         $ind = ProjectIndicator::findOrFail($request->indicator_project);

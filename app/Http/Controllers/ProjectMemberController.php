@@ -28,7 +28,7 @@ class ProjectMemberController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['project_member'] < 1) {
-                return view('layouts.nopermission');
+                return abort(401);
         }
         $data = DB::select("select m.name, pm.* from members as m, project_members as pm where project = ". $id ." and m.id = pm.member order by name");
         $members = DB::select("select distinct * from members where status = 1 and id not in (select member from project_members where project = ".$id.")");
@@ -40,7 +40,7 @@ class ProjectMemberController extends Controller
     public function store(Request $request)
     {     
         if($this->acesso['project_member'] < 2) {
-                return view('layouts.nopermission');
+                return abort(401);
         }
         $request->validate([
             'project'   =>   'required',
@@ -66,7 +66,7 @@ class ProjectMemberController extends Controller
     public function destroy( Request $request, $id)
     {
         if($this->acesso['project_member'] < 4) {
-                return view('layouts.nopermission');
+                return abort(401);
         }
         $data = ProjectMember::findOrFail($request->id);
 

@@ -28,7 +28,7 @@ class ProjectIndicatorController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['project_indicators'] < 1) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $data = DB::table('v_projectindicators')->where('project', $id)->get();
         return view('projectindicator.index', compact('data','id','acesso'));
@@ -38,7 +38,7 @@ class ProjectIndicatorController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['project_indicators'] < 2) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $data = DB::select("select * from indicators where status = 1 order by name");
         return view('projectindicator.create', compact('data','id','acesso'));
@@ -48,7 +48,7 @@ class ProjectIndicatorController extends Controller
     public function store(Request $request)
     {     
         if($this->acesso['project_indicators'] < 2) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $request->validate([
             'project'   =>   'required',
@@ -81,7 +81,7 @@ class ProjectIndicatorController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['project_indicators'] <3) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $data = DB::table('v_projectindicators')->where('id', $id)->first();
         return view('projectindicator.edit', compact('data','acesso'));
@@ -90,7 +90,7 @@ class ProjectIndicatorController extends Controller
     protected function update(Request $request, $id)
     {
         if($this->acesso['project_indicators'] <3) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $validatedData = $request->validate([
             'status'    =>   'required',
@@ -105,7 +105,7 @@ class ProjectIndicatorController extends Controller
     public function destroy( Request $request, $id)
     {
         if($this->acesso['project_indicators'] <4) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $data = ProjectIndicator::findOrFail($request->id);
 

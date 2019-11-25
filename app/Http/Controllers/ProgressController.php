@@ -26,7 +26,7 @@ class ProgressController extends Controller
     public function store(Request $request)
     {
         if($this->acesso['progress'] < 2) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
 
         $request->validate([

@@ -17,9 +17,9 @@
             </div>
           </div>
           <div class="form-group row"  id="just">
-            <label for="inform" class="col-md-4 col-form-label text-md-right">Informe de Progresso</label>
-            <div class="col-md-6">
-              <textarea name="inform"   cols="50" rows="5" class="form-control input-lg"  maxlength="500" id="inform" required ></textarea>
+            <label for="inform" class="col-md-2 col-form-label text-md-right">Informe</label>
+            <div class="col-md-10">
+              <textarea name="inform"   cols="50" rows="15" class="form-control input-lg"  maxlength="1000" id="inform" required ></textarea>
             </div>
           </div>
       </div>

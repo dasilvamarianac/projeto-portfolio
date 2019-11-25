@@ -9,6 +9,7 @@
                                 <h5 class="text-white op-7 mb-2">{{$data->desc}}</h5>
                             </div>
                             <div class="ml-md-auto py-2 py-md-0">
+                                @if($data->risk == 2 && $prog > 0 )
                                     @if($data->status < 8 && $acesso['status_change'] > 1 && $data->status != 1)
                                         <a href="" data-toggle="modal" data-target="#createmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
                                             Status
@@ -20,15 +21,16 @@
                                         Indicador
                                         </a>
                                     @endif
-                                    @if($data->risk == 2 && $acesso['progress'] > 1)
-                                        @if($prog < 0)
-                                            <a href="" data-toggle="modal" data-target="#progressmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
-                                        @else
-                                            <a href="" data-toggle="modal" data-target="#progressmodal" data-delid="{{$data->id}}" class="btn btn-warning btn-round mr-2 mt-2">
-                                        @endif
-                                        Acompanhamento 
-                                        </a>
+                                @endif
+                                @if($data->status < 8 && $data->risk == 2 && $acesso['progress'] > 1)
+                                    @if($prog > 0)
+                                        <a href="" data-toggle="modal" data-target="#progressmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
+                                    @else
+                                        <a href="" data-toggle="modal" data-target="#progressmodal" data-delid="{{$data->id}}" class="btn btn-warning btn-round mr-2 mt-2">
                                     @endif
+                                    Acompanhamento 
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -42,15 +44,15 @@
                                     <div id="activeUsersChart"></div>
                                     <h4 class="mt-2 mb-0 fw-bold">Data de início</h4>
                                     <ul class="list-unstyled">
-                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->start_date}}</small></li>
+                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->dates}}</small></li>
                                     </ul>
                                     <h4 class="mb-0 fw-bold">Data de previsão</h4>
                                     <ul class="list-unstyled">
-                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->expected_date}}</small></li>
+                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->datep}}</small></li>
                                     </ul>
                                     <h4 class="mb-0 fw-bold">Data de Conclusão</h4>
                                     <ul class="list-unstyled">
-                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->end_date}}</small> </li>
+                                        <li class="d-flex justify-content-between pb-1 pt-1"><small>{{$data->datee}}</small> </li>
                                     </ul>
                                     <h4 class="mb-0 fw-bold">Orçamento</h4>
                                     <ul class="list-unstyled">
@@ -75,38 +77,16 @@
                         <div class="col-sm-6 col-md-5">
                             <div class="card full-height">
                                 <div class="card-header">
-                                    <div class="card-title">Status: {{$data->status_name}}</div>
+                                    <div class="card-title"><b>Status Atual</b>: {{$data->status_name}}</div>
                                 </div>
                                 <div class="card-body">
                                     <ol class="activity-feed">
-                                        <li class="feed-item feed-item-secondary">
-                                            <time class="date" datetime="9-25">Sep 25</time>
-                                            <span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
+                                        @foreach($sta as $rows) 
+                                        <li class="feed-item feed-item-{{$rows->status_color}}">
+                                            <time class="date">{{$rows->date}}</time>
+                                            <span class="text"><b>{{$rows->name}}</b> - {{$rows->status_name}}</span>
                                         </li>
-                                        <li class="feed-item feed-item-success">
-                                            <time class="date" datetime="9-24">Sep 24</time>
-                                            <span class="text">Added an interest <a href="#">"Volunteer Activities"</a></span>
-                                        </li>
-                                        <li class="feed-item feed-item-info">
-                                            <time class="date" datetime="9-23">Sep 23</time>
-                                            <span class="text">Joined the group <a href="single-group.php">"Boardsmanship Forum"</a></span>
-                                        </li>
-                                        <li class="feed-item feed-item-warning">
-                                            <time class="date" datetime="9-21">Sep 21</time>
-                                            <span class="text">Responded to need <a href="#">"In-Kind Opportunity"</a></span>
-                                        </li>
-                                        <li class="feed-item feed-item-danger">
-                                            <time class="date" datetime="9-18">Sep 18</time>
-                                            <span class="text">Created need <a href="#">"Volunteer Opportunity"</a></span>
-                                        </li>
-                                        <li class="feed-item">
-                                            <time class="date" datetime="9-17">Sep 17</time>
-                                            <span class="text">Attending the event <a href="single-event.php">"Some New Event"</a></span>
-                                        </li>
-                                        <li class="feed-item feed-item-secondary">
-                                            <time class="date" datetime="9-25">Sep 25</time>
-                                            <span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
-                                        </li>
+                                        @endforeach
                                     </ol>
                                 </div>
                             </div>
@@ -156,20 +136,21 @@
                                     </div>
                                 </a>
                             @endif
-                            @if($acesso['analysis'] > 0)
-                                <a href="{{ url('/project/indicator/'.$data->id) }}">
+                            @if($data->scope != null )
+                                <a href="{{ asset('escopos/')}}/{{$data->scope}}" download>
                                     <div class="card card-stats card-round">
                                     <div class="card-body ">
                                         <div class="row align-items-center">
                                             <div class="col-icon">
                                                 <div class="icon-big text-center icon-primary bubble-shadow-small">
-                                                    <i class="icon-graph"></i>
+                                                    <i class="fas fa-file-signature"></i>
                                                 </div>
                                             </div>
                                             <div class="col col-stats ml-3 ml-sm-0">
                                                 <div class="numbers">
-                                                    <p class="card-category">Análise</p>
-                                                    <h4 class="card-title">1,294</h4>
+                                                    <p class="card-category">Escopo</p>
+
+                                                    <h4 class="card-title">{{$data->scope}}</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -183,29 +164,31 @@
                     @if($data->risk == 2 && $acesso['progress'] > 0)
                     <div class="row mt--2">
                         <div class="col-md-12">
-                            <div class="card full-height">
+                            <div class="card">
                                 <div class="card-header">
                                     <div class="card-title">Acompanhamentos</div>
                                 </div>
                                 <div class="card-body">
-                                    <table id="multi-filter-select" class="display table table-striped table-hover" cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Data</th>
-                                                <th>Responsável</th>                                    
-                                                <th>Informativo</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($acomp as $row) 
-                                            <tr>
-                                                <td style="width:10%">{{ $row->created_at}}</td>
-                                                <td style="width:20%">{{ $row->user}}</td>
-                                                <td style="width:70%">{{ $row->inform}}</td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                    <div class="table-responsive">
+                                        <table id="multi-filter-select" class="display table table-striped table-hover" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Data</th>
+                                                    <th>Responsável</th>                                    
+                                                    <th>Informativo</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($acomp as $row) 
+                                                <tr>
+                                                    <td style="width:10%">{{ $row->date}}</td>
+                                                    <td style="width:20%">{{ $row->name}}</td>
+                                                    <td style="width:70%">{{ $row->inform}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -17,7 +17,6 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('css/demo.css') }}">
 
-
 </head>
 <body>
     <div class="wrapper">
@@ -25,7 +24,7 @@
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="blue">
                 
-                <a href="index.html" class="logo">
+                <a href="/" class="logo">
                     <img src="{{ asset('img/logo.svg')}}"  alt="navbar brand" class="navbar-brand">
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,37 +44,6 @@
             <!-- Navbar Header -->
             <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">  
                 <div class="container-fluid">
-                    <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-                        <li class="nav-item dropdown hidden-caret">
-                            <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
-                                <div class="avatar-sm">
-                                    <img src="{{ asset('img/icon.ico')}}" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user animated fadeIn">
-                                <div class="dropdown-user-scroll scrollbar-outer">
-                                    <li>
-                                        <div class="user-box">
-                                            <div class="u-text">
-                                                <h4> Hey {{ Auth::user()->name }}!</h4>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-                                    </li>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </ul>
-                        </li>
-                    </ul>
                 </div>
             </nav>
             <!-- End Navbar -->

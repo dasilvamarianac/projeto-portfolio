@@ -28,7 +28,7 @@ class IndicatorController extends Controller
     {
         $acesso = $this->acesso;
         if($acesso['indicators'] < 1) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $data = Indicator::latest()->where('status', 1)->get();
         return view('indicator.index', compact('data','acesso'));
@@ -38,7 +38,7 @@ class IndicatorController extends Controller
     {
         $acesso = $this->acesso;
         if($acesso['indicators'] < 2) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         return view('indicator.create', compact('data','acesso'));
     }
@@ -47,12 +47,13 @@ class IndicatorController extends Controller
     {
 
         if($this->acesso['indicators'] < 2) {
-            return view('layouts.nopermission');
+            return abort(401);
         }    
 
         $form_data = array(
             'name'    =>   $request->name,
-            'desc'    =>   $request->desc
+            'desc'    =>   $request->desc,
+            'creator' =>   Auth::user()->id
         );
 
         Indicator::create($form_data);
@@ -65,11 +66,13 @@ class IndicatorController extends Controller
         return view('layouts.noroute');
     }
 
+
+
     public function edit($id)
     {
         $acesso = $this->acesso;
         if($acesso['indicators'] < 3) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $data = Indicator::findOrFail($id);
         return view('indicator.edit', compact('data','acesso'));
@@ -80,7 +83,7 @@ class IndicatorController extends Controller
         
         if ($request->status == 0){
            if($this->acesso['indicators'] < 4) {
-                return view('layouts.nopermission');
+                return abort(401);
             } 
            $validatedData = $request->validate([
                 'status' => 'required|integer',
@@ -89,7 +92,7 @@ class IndicatorController extends Controller
             return redirect('/indicator')->with('success', 'Indicador excluído com sucesso!');   
         }else{
             if($this->acesso['indicators'] < 3) {
-                return view('layouts.nopermission');
+                return abort(401);
             }
             $validatedData = $request->validate([
                 'name' => 'required|string|max:100',
@@ -102,7 +105,7 @@ class IndicatorController extends Controller
     public function generatePDF($id)
     {
         if($this->acesso['reports'] < 1) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         if($id == 'all'){  
             $proj = DB::table('v_project')->where([
@@ -128,7 +131,7 @@ class IndicatorController extends Controller
     {
         $acesso = $this->acesso;
         if($acesso['reports'] < 1) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         if($id == 'all'){  
             $proj = DB::table('v_project')
@@ -152,9 +155,19 @@ class IndicatorController extends Controller
     {
         $acesso = $this->acesso;
         if($acesso['reports'] < 1) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $data = DB::table('v_project')->get();
         return view('indicator.reportindex', compact('data','acesso'));
+    }
+
+    public function analyze($id)
+    {
+        $acesso = $this->acesso;
+        if($acesso['indicators'] < 3) {
+            return abort(401);
+        }
+        $data = Indicator::findOrFail($id);
+        return view('indicator.analyze', compact('data','acesso'));
     }
 }

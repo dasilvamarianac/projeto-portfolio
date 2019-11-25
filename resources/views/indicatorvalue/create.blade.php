@@ -38,7 +38,7 @@
             <label for="value" class="col-md-4 col-form-label text-md-right" >Valor</label>
 
             <div class="col-md-6">
-              <input type="text" name="value" id="value" required class="form-control" />
+              <input type="number" name="value" id="value" required class="form-control" />
             </div>
           </div>
       </div>

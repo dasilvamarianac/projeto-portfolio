@@ -26,7 +26,7 @@ class MemberController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['members'] < 1) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
 
         $data = Member::latest()->where('status', 1)->get();
@@ -37,7 +37,7 @@ class MemberController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['members'] < 2) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         return view('member.create', compact('data','acesso'));
     }
@@ -45,7 +45,7 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         if($this->acesso['members'] < 2) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
 
         $form_data = array(
@@ -66,7 +66,7 @@ class MemberController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['members'] < 3) {
-            return view('layouts.nopermission');
+            return abort(401);
         }
         $data = Member::findOrFail($id);
         return view('member.edit', compact('data','acesso'));
@@ -77,7 +77,7 @@ class MemberController extends Controller
 
         if ($request->status == 0){
             if($this->acesso['members'] < 4) {
-                return view('layouts.nopermission');
+                return abort(401);
             }
            $validatedData = $request->validate([
                 'status' => 'required|integer',
@@ -86,7 +86,7 @@ class MemberController extends Controller
             return redirect('/member')->with('success', 'Membro excluído com sucesso!');   
         }else{
             if($this->acesso['members'] < 3) {
-                return view('layouts.nopermission');
+                return abort(401);
             }
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',

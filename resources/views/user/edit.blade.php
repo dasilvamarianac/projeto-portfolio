@@ -6,7 +6,11 @@
         <div class="page-header">
             <h4 class="page-title">Editar usuário</h4>
         </div>
-
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
             <div class="card">
@@ -65,11 +69,17 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" value="12345678" pattern=".{0}|.{8,}" title="Necessário no mínimo 8 caractéres" maxlength="100">
                             </div>
                         </div> 
+
+                        
                         <div class="form-group row">
                             <label for="profile" class="col-md-4 col-form-label text-md-right">{{ __('Perfil') }}</label>
 
                             <div class="col-md-6">
-                                <select id="profile" type="password" class="form-control" name="profile" required>
+                                @if(Auth::user()->id != $data->id)
+                                    <select id="profile" type="password" class="form-control" name="profile" required>
+                                @else
+                                    <select id="profile" type="password" class="form-control" name="profile" required disabled>
+                                @endif
                                     <option value="0" 
                                     {{ $data->profile == 0 ? 'selected':''}}> {{ __('Administrador') }}</option>
                                     <option value="1" 
@@ -83,11 +93,11 @@
                                 </select>
                             </div>
                         </div>
-
+                       
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <input type="submit" name="update" class="btn btn-primary input-lg" value="Salvar" />
-                                <button class="btn btn-secondary" type="button" onclick="window.location='{{ route('user.index') }}'">Cancelar</button>
+                                <button class="btn btn-secondary" type="button" onclick="window.history.go(-1); return false;">Cancelar</button>
                             </div>
                         </div>
                     </form>

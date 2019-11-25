@@ -48,7 +48,7 @@
 									<td>
 										@if($acesso['project_member'] > 3)
 											<button type="button" class="btn btn-icon btn-round btn-danger" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
-												<i class="fas fa-trash-alt"></i>
+												<i data-toggle="tooltip" data-html="true" title="Excluir" class="fas fa-trash-alt"></i>
 											</button>
 										@endif
 									</td>

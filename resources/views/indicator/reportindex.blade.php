@@ -32,7 +32,7 @@
 									<td>{{$row->expected_date}}</td>
 									<td>
 										<a href="report/{{$row->id}}">
-											<button type="button" class="btn btn-icon btn-round btn-info mb-1" 
+											<button data-toggle="tooltip" data-html="true" title="Gerar Relatório" type="button" class="btn btn-icon btn-round btn-info mb-1" 
 										>
 												<i class="fas fa-file-alt"></i>
 											</button>

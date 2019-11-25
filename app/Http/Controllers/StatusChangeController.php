@@ -29,13 +29,15 @@ class StatusChangeController extends Controller
     {     
 
         if($this->acesso['status_change'] < 2) {
-                return view('layouts.nopermission');
+                return abort(401);
         }
         $status = $request->status + 1;
         $project = $request->project;
         $user = $request->responsible;
         $just = $request->justification;
-        $new_name = null;
+        $proj = Project::findOrFail($project);
+        $new_name = $proj->scope;
+        $date = null;
 
         
 
@@ -53,7 +55,7 @@ class StatusChangeController extends Controller
 
             $form_data_can = array(
                 'project'      =>   $project,
-                'responsible'  =>   Auth::user()->id,
+                'responsible'  =>   $user,
                 'status'       =>   $status
             );
 
@@ -61,9 +63,9 @@ class StatusChangeController extends Controller
         }else{
 
             $request->validate([
-            'project'     =>   'required',
-            'responsible' =>   'required',
-            'status'      =>   'required'
+                'project'     =>   'required',
+                'responsible' =>   'required',
+                'status'      =>   'required'
             ]);
 
             if($request->file('scope')){
@@ -74,8 +76,11 @@ class StatusChangeController extends Controller
 
             StatusChange::create($request->all());
         }
+        if($status == 8){
+            $date = date_create()->format('Y\-m\-d\ h:i:s');
+        }
 
-        Project::where('id', $request->project)->update(array('status' => $status, 'scope' => $new_name ));
+        Project::where('id', $request->project)->update(array('status' => $status, 'scope' => $new_name , 'end_date'=> $date));
         return back();
     }
 

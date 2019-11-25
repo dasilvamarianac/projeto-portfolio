@@ -49,16 +49,16 @@
 											{{$row->status_name}}
 										</span>
 									</td>
-									<td>{{$row->expected_date}}</td>
+									<td>{{$row->datep}}</td>
 									<td>
-										<button type="button" class="btn btn-icon btn-round btn-secondary mb-1 mt-1" 
+										<button data-toggle="tooltip" data-html="true" title="Detalhes" type="button" class="btn btn-icon btn-round btn-secondary mb-1 mt-1" 
 										onclick="window.location='{{ url("project/$row->id") }}'"
 										>
 											<i class="fas fa-info"></i>
 										</button>
-										@if($row->status <= 8)
+										@if($row->status < 8)
 											@if($acesso['projects'] > 2)
-												<a href="/project/edit/{{$row->id}}">
+												<a data-toggle="tooltip" data-html="true" title="Editar" href="/project/edit/{{$row->id}}">
 													<button type="button" class="btn btn-icon btn-round btn-info mb-1" 
 												>
 														<i class="fas fa-pencil-alt"></i>
@@ -67,7 +67,7 @@
 											@endif
 											@if($acesso['projects'] > 3)
 												<button type="button" class="btn btn-icon btn-round btn-danger mb-1" data-toggle="modal" data-target="#deletemodal" data-delid="{{$row->id}}">
-													<i class="fas fa-trash-alt"></i>
+													<i data-toggle="tooltip" data-html="true" title="Excluir" class="fas fa-trash-alt"></i>
 												</button>
 											@endif
 										@endif

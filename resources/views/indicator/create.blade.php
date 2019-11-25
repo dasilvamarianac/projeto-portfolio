@@ -18,7 +18,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">Nome</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus maxlength="35" >
+                                <input id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus maxlength="50" >
                             </div>
                         </div>
 
@@ -26,7 +26,7 @@
                             <label for="desc" class="col-md-4 col-form-label text-md-right">Descrição</label>
 
                             <div class="col-md-6">
-                                <textarea name="desc" cols="50" rows="3" class="form-control input-lg"  maxlength="75" required></textarea>
+                                <textarea name="desc" cols="50" rows="3" class="form-control input-lg"  maxlength="150" ></textarea>
                             </div>
                         </div>
 

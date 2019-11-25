@@ -28,10 +28,22 @@ class ProjectController extends Controller
     public function index()
     {
         $acesso = $this->acesso;
+        $profile = Auth::user()->profile;
+        $id = Auth::user()->id;
+
         if( $acesso['projects'] < 1) {
-                return view('layouts.nopermission');
+                return abort(401);
         }
-        $data = DB::table('v_project')->get();
+        if($profile == 1){
+            $data = DB::table('v_project')->where('manager', $id)->get();
+        }elseif($profile == 2){
+            $data = DB::table('v_project')->where('leader', $id)->get();
+        }elseif($profile == 3){
+            $data = DB::table('v_project')->where('office_leader', $id)->get();
+        }else{
+            $data = DB::table('v_project')->get();
+        }
+        
         return view('project.index', compact('data','acesso'));
     }
 
@@ -39,7 +51,7 @@ class ProjectController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['projects'] < 2) {
-                return view('layouts.nopermission');
+                return abort(401);
         }
         $users = DB::select("select * from users where status = 1 order by name");
         return view('project.create', compact('users','acesso'));
@@ -48,7 +60,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         if($this->acesso['projects'] < 2) {
-                return view('layouts.nopermission');
+                return abort(401);
         }
         $form_data = array(
             'name'          =>   $request->name,
@@ -73,7 +85,7 @@ class ProjectController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['projects'] < 3) {
-                return view('layouts.nopermission');
+                return abort(401);
         }
         $data = Project::findOrFail($id);
         $users = DB::select("select * from users where status = 1 order by name");
@@ -84,11 +96,12 @@ class ProjectController extends Controller
     {
         $acesso = $this->acesso;
         if( $acesso['project_detail'] < 1) {
-                return view('layouts.nopermission');
+                return abort(401);
         }
         $data = DB::table('v_project')->where('id', $id)->first();
         $totalmem = ProjectMember::where('project', $id)->count();
         $totalind = ProjectIndicator::where('project', $id)->count();
+        
         $members = DB::select("select distinct * from members where status = 1 and id in (select member from project_members where project = ".$id.")");
 
         $indicators = DB::select("select pi.*, i.name 
@@ -98,22 +111,29 @@ class ProjectController extends Controller
             where   pi.project = p.id
                 and pi.indicator = i.id
                 and p.status = pi.status
+                and i.status = 1
                 and p.id = ".$id);
 
-        $prog = DB::select("select count(1) from progresses
+        $prog = count(DB::select("select *  from progresses
                             where WEEK(CURDATE(), 3) = WEEK(created_at, 3)
-                            and project = ".$id);
+                            and project = ".$id));
 
-        $acomp = Progress::latest()->where('project', $id)->get();
+        $acomp = DB::select("select p.* , u.name,
+                                        DATE_FORMAT(p.created_at,  '%d-%b-%Y') AS 'date'
+                                from progresses p, users u 
+                                where u.id = p.user
+                                and p.project = ".$id);
+
+        $sta = DB::table('v_changes')->where('project', $id)->get();
         
-        return view('project.detail', compact('data', 'members','totalmem','totalind', 'indicators','acomp', 'prog','acesso'));
+        return view('project.detail', compact('data', 'members','totalmem','totalind', 'indicators','acomp', 'prog','acesso', 'sta'));
     }
 
     protected function update(Request $request, $id)
     {
         if ($request->status == 0){
             if($this->acesso['projects'] < 4) {
-                return view('layouts.nopermission');
+                return abort(401);
             }
            $validatedData = $request->validate([
                 'status' => 'required|integer',
@@ -122,7 +142,7 @@ class ProjectController extends Controller
             return redirect('/project')->with('success', 'Indicador excluído com sucesso!');   
         }else{
             if($this->acesso['projects'] < 3) {
-                return view('layouts.nopermission');
+                return abort(401);
             }
             $validatedData = $request->validate([
             'name'          =>  'required|string',
