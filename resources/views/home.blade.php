@@ -9,15 +9,14 @@
                                 <h5 class="text-white op-7 mb-2">Bem vindx ao Portfoli!</h5>
                             </div>
                             <div class="ml-md-auto py-2 py-md-0">
-                                <form action="http://google.com">
-                                <!-- <button data-toggle="tooltip" data-html="true" title="Editar" type="button" class="btn btn-icon btn-round btn-primary" 
+                                 <button data-toggle="tooltip" data-html="true" title="Editar" type="button" class="btn btn-icon btn-round btn-primary" 
                                         onclick="window.location.href='/user/edit/{{Auth::user()->id}}' ;" >
                                             <i class="fas fa-user-edit"></i>
-                                </button> -->
-                                <button data-toggle="tooltip" data-html="true" title="Logout" type="button" class="btn btn-icon btn-round btn-primary" 
+                                </button>
+                                <button  type="button" class="btn btn-icon btn-round btn-primary" 
                                         onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-door-open"></i>
+                                    <i class="fas fa-door-open" data-toggle="tooltip" data-html="true" title="Logout"></i>
                                             
                                 </button>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

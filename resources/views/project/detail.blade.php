@@ -181,9 +181,9 @@
                                             <tbody>
                                                 @foreach($acomp as $row) 
                                                 <tr>
-                                                    <td style="width:10%">{{ $row->date}}</td>
-                                                    <td style="width:20%">{{ $row->name}}</td>
-                                                    <td style="width:70%">{{ $row->inform}}</td>
+                                                    <td style="width:300px">{{ $row->date}}</td>
+                                                    <td >{{ $row->name}}</td>
+                                                    <td >{{ $row->inform}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

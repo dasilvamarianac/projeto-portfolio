@@ -12,12 +12,7 @@
         </div>
     	@endif
         <div class="row ">
-        	<div class="col-lg-1">
-				<a href="/" class="btn btn-link col-lg-2 mb-3 ml-10 float-right">
-            		<i class="icon-arrow-left"></i> 
-            	</a>
-		    </div>
-            <div class="col-lg-11">
+            <div class="col-lg-12">
             	@if($acesso['projects'] > 1)
 	            	<button class="btn btn-primary btn-border btn-round col-lg-2 mb-3 ml-10 float-right"  onclick="window.location='{{ route('project.create') }}'">
 	            		<i class="fas fa-plus"></i> Novo
@@ -51,11 +46,12 @@
 									</td>
 									<td>{{$row->datep}}</td>
 									<td>
-										<button data-toggle="tooltip" data-html="true" title="Detalhes" type="button" class="btn btn-icon btn-round btn-secondary mb-1 mt-1" 
-										onclick="window.location='{{ url("project/$row->id") }}'"
-										>
-											<i class="fas fa-info"></i>
-										</button>
+										@if($acesso['project_detail'] > 0)
+											<button data-toggle="tooltip" data-html="true" title="Detalhes" type="button" class="btn btn-icon btn-round btn-secondary mb-1 mt-1" onclick="window.location='{{ url("project/$row->id") }}'"
+											>
+												<i class="fas fa-info"></i>
+											</button>
+										@endif
 										@if($row->status < 8)
 											@if($acesso['projects'] > 2)
 												<a data-toggle="tooltip" data-html="true" title="Editar" href="/project/edit/{{$row->id}}">

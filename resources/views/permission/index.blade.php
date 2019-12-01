@@ -39,7 +39,7 @@ icon-grid"></i>
 						<li class="nav-item">
 							<a class="nav-link" id="pills-home-tab-icon"  href="/permission/edit/4" >
 							<i class="icon-briefcase"></i>
-							Alta Diretoria
+							Alta Direção
 							</a>
 						</li>
 					</ul>

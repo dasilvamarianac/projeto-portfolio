@@ -74,7 +74,7 @@
                                     <option value="1">{{ __('Gerente') }}</option>
                                     <option value="2">{{ __('Líder de Projeto') }}</option>
                                     <option value="3">{{ __('Líder de Escritório') }}</option>
-                                    <option value="4">{{ __('Alta Diretoria') }}</option>
+                                    <option value="4">{{ __('Alta Direção') }}</option>
                                 </select>
                             </div>
                         </div>

@@ -44,14 +44,14 @@
                             <label for="min" class="col-md-4 col-form-label text-md-right">Mínimo</label>
 
                             <div class="col-md-6">
-                                <input id="min" type="text" class="form-control" name="min_value" required autocomplete="min" autofocus >
+                                <input id="min" type="number" class="form-control" name="min_value" required autocomplete="min" autofocus >
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="max" class="col-md-4 col-form-label text-md-right">Máximo</label>
 
                             <div class="col-md-6">
-                                <input id="max" type="text" class="form-control" name="max_value" required autocomplete="max" autofocus >
+                                <input id="max" type="number" class="form-control" name="max_value" required autocomplete="max" autofocus >
                             </div>
                         </div>                        
                         <div class="form-group row">

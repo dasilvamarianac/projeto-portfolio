@@ -161,13 +161,13 @@ class IndicatorController extends Controller
         return view('indicator.reportindex', compact('data','acesso'));
     }
 
-    public function analyze($id)
+    public function analysis($id)
     {
         $acesso = $this->acesso;
         if($acesso['indicators'] < 3) {
             return abort(401);
         }
-        $data = Indicator::findOrFail($id);
-        return view('indicator.analyze', compact('data','acesso'));
+        $all = DB::table('v_projectindicators')->get();
+        return view('indicator.analysis', compact('all','acesso'));
     }
 }

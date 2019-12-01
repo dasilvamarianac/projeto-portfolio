@@ -21,7 +21,7 @@ Route::get('/user/edit/{id}', 'UserController@edit');
 
 Route::resource('indicator','IndicatorController');
 Route::get('/indicator/edit/{id}', 'IndicatorController@edit');
-Route::get('/indicator/analyze/{id}', 'IndicatorController@analyze');
+Route::get('/indicator/analysis/{id}', 'IndicatorController@analysis');
 
 Route::resource('project','ProjectController');
 Route::get('/project/edit/{id}', 'ProjectController@edit');

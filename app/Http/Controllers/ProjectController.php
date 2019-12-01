@@ -77,7 +77,7 @@ class ProjectController extends Controller
 
         Project::create($form_data);
 
-         return redirect('/project')->with('success', 'Indicador criado com sucesso!'); 
+         return redirect('/project')->with('success', 'Projeto criado com sucesso!'); 
     }
 
 
@@ -139,7 +139,7 @@ class ProjectController extends Controller
                 'status' => 'required|integer',
             ]);
             Project::whereId($request->id)->update($validatedData);
-            return redirect('/project')->with('success', 'Indicador excluído com sucesso!');   
+            return redirect('/project')->with('success', 'Projeto excluído com sucesso!');   
         }else{
             if($this->acesso['projects'] < 3) {
                 return abort(401);
@@ -155,7 +155,7 @@ class ProjectController extends Controller
             'risk'          =>  'required|integer'
             ]);
             Project::whereId($id)->update($validatedData);
-            return redirect('/project')->with('success', 'Indicador alterado com sucesso!'); 
+            return redirect('/project')->with('success', 'Projeto alterado com sucesso!'); 
         }
     }
 }

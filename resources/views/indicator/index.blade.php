@@ -36,7 +36,7 @@
 								<tr>
 									<td style="width:25%">{{$row->name}}</td>
 									<td style="width:55%">{{$row->desc}}</td>
-									<td style="width:18%">
+									<td style="width:20%">
 										@if($acesso['indicators'] > 2)
 											<button data-toggle="tooltip" data-html="true" title="Editar" type="button" class="btn btn-icon btn-round btn-info" 
 										onclick="window.location='{{ url("indicator/edit/$row->id") }}'">
@@ -46,7 +46,7 @@
 
 										@if($acesso['analysis'] > 0 && $row->creator == Auth::user()->id) 
 											<button data-toggle="tooltip" data-html="true" title="Analisar" type="button" class="btn btn-icon btn-round btn-secondary" 
-										onclick="window.location='{{ url("indicator/analyze/$row->id") }}'">
+										onclick="window.location='{{ url("indicator/analysis/$row->id") }}'">
 											<i class="fas fa-chart-bar"></i>
 											</button>
 										@endif

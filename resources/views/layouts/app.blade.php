@@ -198,6 +198,7 @@
 
     <!-- Atlantis JS -->
     <script src="{{ asset('js/atlantis.min.js')}}"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script >
     $(document).ready(function() {
         $('#basic-datatables').DataTable({});
@@ -283,6 +284,35 @@
                 }
         });
     </script>
+    <script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    theme:  "light1",//, "light2", "dark1", "dark2"
+    axisY: {
+        title: "Média"
+    },
+    data: [{        
+        type: "column",  
+        showInLegend: true, 
+        legendText: "Status",
+        dataPoints: [      
+            { y: 50, label: "Em Análise" },
+            { y: 75,  label: "Análise Realizada" },
+            { y: 110,  label: "Análise Aprovada" },
+            { y: -50,  label: "Iniciado" },
+            { y: 25,  label: "Planejado" },
+            { y: 100, label: "Em Andamento" },
+            { y: 25,  label: "Encerrado" },
+
+        ]
+    }]
+});
+chart.render();
+
+}
+</script>
 </body>
 </html>
 
