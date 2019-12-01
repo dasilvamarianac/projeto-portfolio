@@ -6,13 +6,13 @@
                         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                             <div>
                                 <h2 class="text-white pb-2 fw-bold">Olá {{ Auth::user()->name }}</h2>
-                                <h5 class="text-white op-7 mb-2">Bem vindx ao Portfoli!</h5>
+                                <h5 class="text-white op-7 mb-2">Bem-vindx ao Portfoli!</h5>
                             </div>
                             <div class="ml-md-auto py-2 py-md-0">
-                                 <button data-toggle="tooltip" data-html="true" title="Editar" type="button" class="btn btn-icon btn-round btn-primary" 
+                                <!--<button data-toggle="tooltip" data-html="true" title="Editar" type="button" class="btn btn-icon btn-round btn-primary" 
                                         onclick="window.location.href='/user/edit/{{Auth::user()->id}}' ;" >
                                             <i class="fas fa-user-edit"></i>
-                                </button>
+                                </button>-->
                                 <button  type="button" class="btn btn-icon btn-round btn-primary" 
                                         onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
