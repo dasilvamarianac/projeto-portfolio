@@ -183,10 +183,10 @@ class IndicatorController extends Controller
         
         $total = count(DB::select(
             " select * from v_indicator_values
-            where (value > max_value  or  value < min_value) and id = ".$id));
+            where (value <= max_value  and  value >= min_value) and id = ".$id));
         
         if (count($all)>0){
-            $perc = round((1 - ($total/count($all))) * 100 , 2);
+            $perc = round(( $total/count($all) * 100) , 2);
         }else{
             $perc = '';
         }
