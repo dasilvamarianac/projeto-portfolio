@@ -5,7 +5,7 @@
                     <div class="page-inner py-5">
                         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                             <div style="width: 600px">
-                                <h1>IDT</h1>
+                                <h1>{{$data->name}}</h1>
                             </div>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
                                                 <div class="col col-stats ml-3 ml-sm-0">
                                                     <div class="numbers">
                                                         <p class="card-category">Máximo</p>
-                                                        <h4 class="card-title">180</h4>
+                                                        <h4 class="card-title">{{$metrics->max}}</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -42,7 +42,7 @@
                                                 <div class="col col-stats ml-3 ml-sm-0">
                                                     <div class="numbers">
                                                         <p class="card-category">Mínimo</p>
-                                                        <h4 class="card-title">-150</h4>
+                                                        <h4 class="card-title">{{$metrics->min}}</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -60,7 +60,7 @@
                                                 <div class="col col-stats ml-3 ml-sm-0">
                                                     <div class="numbers">
                                                         <p class="card-category">Média</p>
-                                                        <h4 class="card-title">85</h4>
+                                                        <h4 class="card-title">{{$metrics->med}}</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,7 +78,7 @@
                                                 <div class="col col-stats ml-3 ml-sm-0">
                                                     <div class="numbers">
                                                         <p class="card-category">% Dentro do esperado</p>
-                                                        <h4 class="card-title">90</h4>
+                                                        <h4 class="card-title">{{$perc}}</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -120,7 +120,7 @@
                                                 <tr>
                                                     <td >{{ $row->date}}</td>
                                                     <td >{{ $row->status_name}}</td>
-                                                    <td >{{ $row->max_value}}</td>
+                                                    <td >{{ $row->value}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

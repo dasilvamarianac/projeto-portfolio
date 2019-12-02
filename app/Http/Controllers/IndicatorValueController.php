@@ -30,7 +30,7 @@ class IndicatorValueController extends Controller
     {    
 
 
-        if($this->acesso['indicator_value'] < 3) {
+        if($this->acesso['indicator_value'] < 2) {
             return abort(401);
         }
 

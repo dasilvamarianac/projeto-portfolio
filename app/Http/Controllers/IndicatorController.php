@@ -96,7 +96,7 @@ class IndicatorController extends Controller
             }
             $validatedData = $request->validate([
                 'name' => 'required|string|max:100',
-                'desc' => 'required|string|max:500',
+                'desc' => 'string|max:500',
             ]);
             Indicator::whereId($id)->update($validatedData);
             return redirect('/indicator')->with('success', 'Indicador alterado com sucesso!'); 
@@ -167,7 +167,28 @@ class IndicatorController extends Controller
         if($acesso['indicators'] < 3) {
             return abort(401);
         }
-        $all = DB::table('v_projectindicators')->get();
-        return view('indicator.analysis', compact('all','acesso'));
+        $data = Indicator::findOrFail($id);
+        $all = DB::table('v_indicator_values')->where('id', $id)->get();
+
+        $metrics = DB::select(
+            "select max(value) 'max', min(value) 'min', round(avg(value),2) 'med'
+            from indicator_values iv,
+                project_indicators p
+            where p.id = iv.indicator_project
+              and p.indicator = ".$id);
+
+       // echo "<script>console.log(".json_decode($metrics).");</script>";
+
+        $metrics =$metrics[0];
+        
+        $total = count(DB::select(
+            " select * from v_indicator_values
+            where (value > max_value  or  value < min_value) and id = ".$id));
+
+        $perc = round((1 - ($total/count($all))) * 100 , 2);
+
+        return view('indicator.analysis', compact('data','all', 'metrics', 'perc', 'acesso'));
+
+
     }
 }

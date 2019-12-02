@@ -9,7 +9,7 @@
                                 <h5 class="text-white op-7 mb-2">{{$data->desc}}</h5>
                             </div>
                             <div class="ml-md-auto py-2 py-md-0">
-                                @if($data->risk == 2 && $prog > 0 )
+                                @if(($data->risk == 2 && $prog > 0) || ($data->risk != 2))
                                     @if($data->status < 8 && $acesso['status_change'] > 1 && $data->status != 1)
                                         <a href="" data-toggle="modal" data-target="#createmodal" data-delid="{{$data->id}}" class="btn btn-secondary btn-round mr-2 mt-2">
                                             Status
